@@ -12,7 +12,7 @@ export const Header = observer(function Header() {
       </div>
 
       <div className="app-header__center">
-        <h1 className="app-header__title">Wine Glass Viewer</h1>
+        <h1 className="app-header__title">Wine Bottle Viewer</h1>
         <span className="app-header__subtitle">
           {designManager.selectedModelConfig.name} Collection
         </span>
