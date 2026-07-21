@@ -1,0 +1,11 @@
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.scene canvas {
+  display: block;
+  outline: none;
+  touch-action: none;
+}

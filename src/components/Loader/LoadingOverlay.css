@@ -1,0 +1,56 @@
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(21, 10, 13, 0.55);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-standard);
+  z-index: 20;
+}
+
+.loading-overlay.is-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loading-overlay__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pour-glass {
+  width: 56px;
+  height: 78px;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.4));
+}
+
+.pour-glass__outline {
+  fill: none;
+  stroke: var(--color-gold-soft);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.pour-glass__fill {
+  fill: var(--color-bordeaux-bright);
+  transition: clip-path 0.15s linear;
+}
+
+.loading-overlay__label {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.loading-overlay__percent {
+  color: var(--color-gold-soft);
+}
