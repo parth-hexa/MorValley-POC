@@ -13,7 +13,7 @@ export const ModelSelector = observer(function ModelSelector() {
 
   return (
     <div className="model-selector" role="radiogroup" aria-label="Glass models">
-      <p className="model-selector__eyebrow">Glass Models</p>
+      <p className="model-selector__eyebrow">Bottle Models</p>
       <ul className="model-selector__list">
         {GLASS_CATALOG.map((model) => {
           const isActive = designManager.selectedModelId === model.id;
