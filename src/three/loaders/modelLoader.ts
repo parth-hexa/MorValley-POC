@@ -44,17 +44,48 @@ export async function loadGlassModel(
     model.position.y = -scaledBox.min.y - 1.0;
     model.position.z = -scaledCenter.z;
 
-    // Prepare meshes and materials for glass rendering
     model.traverse((child) => {
+      let isOuter = false;
+      let isInner = false;
+      let curr: THREE.Object3D | null = child;
+
+      while (curr) {
+        const n = curr.name.toLowerCase();
+        if (n.includes("outer")) isOuter = true;
+        if (n.includes("inner")) isInner = true;
+        curr = curr.parent;
+      }
+
+      if (isOuter) {
+        child.renderOrder = 2;
+      } else if (isInner) {
+        child.renderOrder = 1;
+      }
+
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh;
         mesh.castShadow = true;
         mesh.receiveShadow = true;
 
         if (mesh.material) {
-          const mat = mesh.material as THREE.MeshStandardMaterial;
-          mat.side = THREE.DoubleSide;
-          mat.needsUpdate = true;
+          const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          materials.forEach((mat: any) => {
+            mat.depthWrite = true;
+            mat.depthTest = true;
+
+            // inner_mtr is the wine liquid fill; turn off transmission so the dark red wine liquid shows
+            if (isInner && mat.name === "inner_mtr") {
+              if ("transmission" in mat) {
+                mat.transmission = 0;
+              }
+              if (mat.color) {
+                mat.color.set("#1c0407");
+              }
+              mat.roughness = 0.1;
+            }
+
+            mat.needsUpdate = true;
+          });
         }
       }
     });
