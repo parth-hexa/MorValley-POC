@@ -1,23 +1,18 @@
-/**
- * Three-point-style lighting tuned for clear glass: a soft key, a cool rim
- * light to catch the far edge of the bowl, and a low ambient fill so the
- * glass never goes fully black against the dark UI.
- */
 export function Lighting() {
   return (
     <>
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.6} color="#ffffff" />
       <directionalLight
-        position={[3, 4, 2]}
-        intensity={1.4}
-        color="#fff3e0"
+        position={[4, 6, 4]}
+        intensity={1.8}
+        color="#fff9f0"
       />
       <directionalLight
-        position={[-3, 2, -2]}
-        intensity={0.6}
-        color="#c9dcff"
+        position={[-4, 3, -3]}
+        intensity={0.8}
+        color="#e4ebf5"
       />
-      <pointLight position={[0, -1.5, 2]} intensity={0.3} color="#e0c383" />
+      <pointLight position={[0, -1, 3]} intensity={0.4} color="#c8d0bf" />
     </>
   );
 }

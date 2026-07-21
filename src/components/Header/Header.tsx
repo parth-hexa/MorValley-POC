@@ -7,14 +7,19 @@ export const Header = observer(function Header() {
 
   return (
     <header className="app-header">
-      <div className="app-header__mark" aria-hidden="true">
-        &#127863;
+      <div className="app-header__left">
+        <span className="app-header__brand">MORVALLEY</span>
       </div>
-      <div className="app-header__titles">
+
+      <div className="app-header__center">
         <h1 className="app-header__title">Wine Glass Viewer</h1>
-        <p className="app-header__subtitle">
-          Viewing <span>{designManager.selectedModelConfig.name}</span>
-        </p>
+        <span className="app-header__subtitle">
+          {designManager.selectedModelConfig.name} Collection
+        </span>
+      </div>
+
+      <div className="app-header__right">
+        <span className="app-header__tag">Edition 1.0</span>
       </div>
     </header>
   );

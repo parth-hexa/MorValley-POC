@@ -24,19 +24,19 @@ export const Scene = observer(function Scene() {
         gl={{ antialias: true, alpha: true }}
         onCreated={() => design3DManager.setSceneInitialized(true)}
       >
-        <color attach="background" args={["#150a0d"]} />
-        <fog attach="fog" args={["#150a0d", 6, 12]} />
+        <color attach="background" args={["#7D9165"]} />
+        <fog attach="fog" args={["#7D9165", 6, 14]} />
         <Suspense fallback={null}>
           <EnvironmentSetup />
           <Lighting />
           <GlassModel />
           <ContactShadows
             position={[0, -1.05, 0]}
-            opacity={0.45}
+            opacity={0.25}
             scale={6}
             blur={2.4}
             far={2}
-            color="#0a0304"
+            color="#465437"
           />
         </Suspense>
         <CameraControls />

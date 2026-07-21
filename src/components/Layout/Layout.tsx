@@ -1,7 +1,6 @@
 import { Header } from "../Header/Header";
 import { Scene } from "../Canvas/Scene";
 import { ModelSelector } from "../Sidebar/ModelSelector";
-import { DesignPanel } from "../Sidebar/DesignPanel";
 import { LoadingOverlay } from "../Loader/LoadingOverlay";
 import "./Layout.css";
 
@@ -12,10 +11,11 @@ export function Layout() {
       <div className="app-body">
         <div className="canvas-stage">
           <Scene />
-          <ModelSelector />
           <LoadingOverlay />
         </div>
-        <DesignPanel />
+        <aside className="right-panel">
+          <ModelSelector />
+        </aside>
       </div>
     </div>
   );

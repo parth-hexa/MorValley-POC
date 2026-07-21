@@ -10,7 +10,6 @@ import { DEFAULT_GLASS_ID, GLASS_CATALOG, type GlassType } from "./types";
  */
 export class DesignManager {
   selectedModelId: GlassType = DEFAULT_GLASS_ID;
-  isDesignPanelOpen = true;
 
   private design3DManager: Design3DManager;
 
@@ -25,10 +24,6 @@ export class DesignManager {
 
   get selectedModelConfig() {
     return GLASS_CATALOG.find((m) => m.id === this.selectedModelId) ?? GLASS_CATALOG[0];
-  }
-
-  toggleDesignPanel() {
-    this.isDesignPanelOpen = !this.isDesignPanelOpen;
   }
 
   async selectModel(modelId: GlassType) {
