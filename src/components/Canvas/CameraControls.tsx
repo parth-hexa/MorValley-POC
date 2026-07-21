@@ -18,8 +18,8 @@ export const CameraControls = observer(function CameraControls() {
         enablePan={false}
         minDistance={cameraState.minDistance}
         maxDistance={cameraState.maxDistance}
-        maxPolarAngle={Math.PI * 0.85}
-        minPolarAngle={Math.PI * 0.15}
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 3.5}
         enableDamping
         dampingFactor={0.08}
         rotateSpeed={0.6}
