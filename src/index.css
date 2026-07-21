@@ -19,10 +19,10 @@
   --space-6: 32px;
   --space-7: 48px;
 
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --radius-xl: 28px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
 
   --header-height: 88px;
 

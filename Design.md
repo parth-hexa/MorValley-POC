@@ -345,31 +345,15 @@ Never use heavy material-design shadows.
 
 # Corners
 
-Recommended radius
+Pure squared look matching the editorial Morvalley reference website.
 
-Small
-
-```
-8px
-```
-
-Medium
+Radius
 
 ```
-16px
+0px
 ```
 
-Large
-
-```
-24px
-```
-
-Panels
-
-```
-28px
-```
+All elements (buttons, cards, panels, containers) must have sharp 90° edges with zero border radius.
 
 ---
 
