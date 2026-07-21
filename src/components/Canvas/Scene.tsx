@@ -31,12 +31,12 @@ export const Scene = observer(function Scene() {
           <Lighting />
           <GlassModel />
           <ContactShadows
-            position={[0, -1.05, 0]}
-            opacity={0.25}
+            position={[0, -1.0, 0]}
+            opacity={0.35}
             scale={6}
-            blur={2.4}
+            blur={1.8}
             far={2}
-            color="#465437"
+            color="#3a472d"
           />
         </Suspense>
         <CameraControls />
