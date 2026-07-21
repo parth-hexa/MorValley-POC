@@ -10,6 +10,9 @@ dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
 const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
 
+/** In-memory cache for parsed GLB model templates to allow instant model switching. */
+const modelCache = new Map<string, THREE.Object3D>();
+
 export interface LoadResult {
   object: THREE.Object3D;
   /** true if a real bundled .glb was found and used, false if we fell back. */
@@ -20,6 +23,13 @@ export async function loadGlassModel(
   config: GlassModelConfig,
   onProgress?: (percent: number) => void
 ): Promise<LoadResult> {
+  // Check if model is already cached for instant switching
+  if (modelCache.has(config.glbPath)) {
+    onProgress?.(100);
+    const cachedModel = modelCache.get(config.glbPath)!;
+    return { object: cachedModel.clone(true), fromAsset: true };
+  }
+
   try {
     const gltf = await gltfLoader.loadAsync(config.glbPath, (event) => {
       if (event.total > 0) {
@@ -93,8 +103,11 @@ export async function loadGlassModel(
       }
     });
 
+    // Save processed model template to cache
+    modelCache.set(config.glbPath, model);
+
     onProgress?.(100);
-    return { object: model, fromAsset: true };
+    return { object: model.clone(true), fromAsset: true };
   } catch (err) {
     console.error("Error loading GLTF model:", err);
     return simulateProceduralLoad(config, onProgress);
