@@ -1,4 +1,4 @@
-export type GlassType = "wine-glass-1";
+export type GlassType = string;
 
 export interface GlassModelConfig {
   id: GlassType;
@@ -10,9 +10,15 @@ export interface GlassModelConfig {
 export const GLASS_CATALOG: GlassModelConfig[] = [
   {
     id: "wine-glass-1",
-    name: "MorValley Glass",
+    name: "Douro Reserva Rogador",
     glbPath: "/models/Wine_Glass_1.glb",
-    note: "Crafted crystal wine glass",
+    note: "750ml",
+  },
+  {
+    id: "wine-glass-2",
+    name: "Magnum Douro Reserva",
+    glbPath: "/models/Wine_Glass_2.glb",
+    note: "1500ml",
   },
 ];
 
