@@ -7,6 +7,7 @@ import { Lighting } from "./Lighting";
 import { EnvironmentSetup } from "./EnvironmentSetup";
 import { CameraControls } from "./CameraControls";
 import { GlassModel } from "./GlassModel";
+import { LogoBackDrop } from "./LogoBackDrop";
 import "./Scene.css";
 
 /**
@@ -18,14 +19,21 @@ export const Scene = observer(function Scene() {
 
   return (
     <div className="scene">
+      <LogoBackDrop />
+      <div className="scene-frame">
+        <div className="corner top-left"></div>
+        <div className="corner top-right"></div>
+        <div className="corner bottom-left"></div>
+        <div className="corner bottom-right"></div>
+      </div>
       <Canvas
         shadows
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         onCreated={() => design3DManager.setSceneInitialized(true)}
       >
-        <color attach="background" args={["#7D9165"]} />
-        <fog attach="fog" args={["#7D9165", 6, 14]} />
+        {/* <color attach="background" args={["#7D9165"]} /> */}
+        {/* <fog attach="fog" args={["#7D9165", 6, 14]} /> */}
         <Suspense fallback={null}>
           <EnvironmentSetup />
           <Lighting />
