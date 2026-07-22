@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: radial-gradient(74.1% 197.73% at 35.57% 54.26%, #153A28 0%, #215A3E 50%, #153A28 84.05%);
+  background: radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%);
 }
 
 .scene canvas {
@@ -38,7 +38,7 @@
   left: 24px;
   right: 24px;
   bottom: 24px;
-  border: 1px solid rgba(197, 160, 89, 0.25);
+  border: 1px solid #C9A96E;
   pointer-events: none;
   z-index: 2;
 }
@@ -47,7 +47,7 @@
   position: absolute;
   width: 14px;
   height: 14px;
-  border: 1px solid rgba(197, 160, 89, 0.5);
+  border: 2px solid #C9A96E;
 }
 
 .scene-frame .top-left {
