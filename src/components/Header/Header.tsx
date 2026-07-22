@@ -4,6 +4,7 @@ import "./Header.css";
 
 export const Header = observer(() => {
   const { designManager } = useStores();
+  const selectedBottle = designManager.productManager.bottle2DManager.getSelectedBottle();
 
   return (
     <header className="app-header">
@@ -14,7 +15,7 @@ export const Header = observer(() => {
       <div className="app-header__center">
         <h1 className="app-header__title">Wine Bottle Viewer</h1>
         <span className="app-header__subtitle">
-          {designManager.productManager.bottleManager.selectedModelConfig.name} Collection
+          {selectedBottle?.name ?? "Loading..."} Collection
         </span>
       </div>
 

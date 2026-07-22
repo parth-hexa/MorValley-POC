@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../hooks/useStores";
-import { GLASS_CATALOG } from "../../state/types";
 import "./ModelSelector.css";
 
 /**
@@ -10,13 +9,14 @@ import "./ModelSelector.css";
  */
 export const ModelSelector = observer(function ModelSelector() {
   const { designManager } = useStores();
+  const bottle2DManager = designManager.productManager.bottle2DManager;
 
   return (
     <div className="model-selector" role="radiogroup" aria-label="Glass models">
       <p className="model-selector__eyebrow">Bottle Models</p>
       <ul className="model-selector__list">
-        {GLASS_CATALOG.map((model) => {
-          const isActive = designManager.productManager.bottleManager.selectedModelId === model.id;
+        {bottle2DManager.bottles.map((model) => {
+          const isActive = bottle2DManager.selectedBottleId === model.id;
           return (
             <li key={model.id}>
               <button

@@ -1,15 +1,15 @@
 import { makeAutoObservable } from "mobx";
-import { BottleManager } from "./BottleManager";
+import { Bottle2DManager } from "./Bottle2DManager";
 
 export class ProductManager {
-  private _bottleManager: BottleManager;
+  private _bottle2DManager: Bottle2DManager;
 
   public constructor() {
-    this._bottleManager = new BottleManager();
+    this._bottle2DManager = new Bottle2DManager();
     makeAutoObservable(this);
   }
 
-  public get bottleManager(): BottleManager {
-    return this._bottleManager;
+  public get bottle2DManager(): Bottle2DManager {
+    return this._bottle2DManager;
   }
 }

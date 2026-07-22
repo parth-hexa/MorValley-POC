@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StateManager } from "./state/StateManager";
 import { StateManagerContext } from "./hooks/useStores";
 import { Layout } from "./components/Layout/Layout";
+import { Parser } from "./utils/Parser";
 
 function App() {
   // Root manager is created once per app instance, per the "single root
@@ -9,7 +10,8 @@ function App() {
   const [stateManager] = useState(() => new StateManager());
 
   useEffect(() => {
-    stateManager.designManager.loadDefaultModel();
+    const parser = new Parser();
+    parser.loadData(stateManager);
   }, [stateManager]);
 
   return (
