@@ -24,13 +24,16 @@ export function createGlassMaterial2(): THREE.MeshPhysicalMaterial {
 }
 export function createGlassMaterial(): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
-    color: "#5c5c5c",
+    color: "#342f2f",
     transmission: 1,
-    roughness: 0.15,
+    roughness: 0.09,
     thickness: 500,
     envMapIntensity: 4,
-    attenuationColor: new THREE.Color("#acacac"),
+    attenuationColor: new THREE.Color("#d88d68"),
     attenuationDistance: 1.3,
+    clearcoat: 0.8,
+    clearcoatRoughness: 0,
+    ior: 1.5,
   });
 }
 

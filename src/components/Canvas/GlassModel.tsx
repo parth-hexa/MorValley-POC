@@ -10,8 +10,6 @@ interface MeshComponentProps {
 }
 
 export function InnerOne({ mesh }: MeshComponentProps) {
-  if (!mesh) return null;
-
   const glassMaterial = useMemo(() => createGlassMaterial(), []);
 
   useEffect(() => {
@@ -20,6 +18,7 @@ export function InnerOne({ mesh }: MeshComponentProps) {
     }
   }, [mesh, glassMaterial]);
 
+  if (!mesh) return null;
   return <primitive object={mesh} />;
 }
 
@@ -54,9 +53,10 @@ export const GlassModel = observer(function GlassModel() {
     if (!groupRef.current) return;
     progressRef.current = Math.min(1, progressRef.current + delta * 1.6);
     const eased = 1 - Math.pow(1 - progressRef.current, 3);
-    
+
     idleRotationRef.current += delta * 0.12;
-    groupRef.current.rotation.y = idleRotationRef.current + (1 - eased) * (Math.PI / 2);
+    groupRef.current.rotation.y =
+      idleRotationRef.current + (1 - eased) * (Math.PI / 2);
   });
 
   const meshes = useMemo(() => {
