@@ -16,7 +16,7 @@ export const ModelSelector = observer(function ModelSelector() {
       <p className="model-selector__eyebrow">Bottle Models</p>
       <ul className="model-selector__list">
         {GLASS_CATALOG.map((model) => {
-          const isActive = designManager.selectedModelId === model.id;
+          const isActive = designManager.productManager.bottleManager.selectedModelId === model.id;
           return (
             <li key={model.id}>
               <button

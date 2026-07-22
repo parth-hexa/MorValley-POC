@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import type { Design3DManager } from "./Design3DManager";
+import { ProductManager } from "./ProductManager";
 import { DEFAULT_GLASS_ID, GLASS_CATALOG, type GlassType } from "./types";
 
 /**
@@ -9,43 +10,36 @@ import { DEFAULT_GLASS_ID, GLASS_CATALOG, type GlassType } from "./types";
  * raw 3D concerns in Design3DManager.
  */
 export class DesignManager {
-  private _selectedModelId: GlassType = DEFAULT_GLASS_ID;
+  private _productManager: ProductManager;
 
   private design3DManager: Design3DManager;
 
-  constructor(design3DManager: Design3DManager) {
+  public constructor(design3DManager: Design3DManager) {
     this.design3DManager = design3DManager;
+    this._productManager = new ProductManager();
     makeAutoObservable<this, "design3DManager">(this, { design3DManager: false });
   }
 
-  get selectedModelId(): GlassType {
-    return this._selectedModelId;
+  public get productManager(): ProductManager {
+    return this._productManager;
   }
 
-  set selectedModelId(value: GlassType) {
-    this._selectedModelId = value;
-  }
-
-  get isLoading(): boolean {
+  public get isLoading(): boolean {
     return this.design3DManager.isLoading;
   }
 
-  get selectedModelConfig() {
-    return GLASS_CATALOG.find((m) => m.id === this.selectedModelId) ?? GLASS_CATALOG[0];
-  }
-
-  async selectModel(modelId: GlassType) {
-    if (modelId === this.selectedModelId && this.design3DManager.currentModel === modelId) {
+  public async selectModel(modelId: GlassType) {
+    if (modelId === this.productManager.bottleManager.selectedModelId && this.design3DManager.currentModel === modelId) {
       return;
     }
-    this.selectedModelId = modelId;
+    this.productManager.bottleManager.setSelectedModelId(modelId);
     const config = GLASS_CATALOG.find((m) => m.id === modelId);
     if (config) {
       await this.design3DManager.loadModel(config);
     }
   }
 
-  async loadDefaultModel() {
+  public async loadDefaultModel() {
     await this.selectModel(DEFAULT_GLASS_ID);
   }
 }

@@ -1,3 +1,4 @@
+import { makeAutoObservable } from "mobx";
 import { Design3DManager } from "./Design3DManager";
 import { DesignManager } from "./DesignManager";
 
@@ -10,16 +11,24 @@ export class StateManager {
   private readonly _design3DManager: Design3DManager;
   private readonly _designManager: DesignManager;
 
-  constructor() {
+  public constructor() {
     this._design3DManager = new Design3DManager();
     this._designManager = new DesignManager(this._design3DManager);
+
+    makeAutoObservable(this);
   }
 
-  get design3DManager(): Design3DManager {
-    return this._design3DManager;
-  }
-
-  get designManager(): DesignManager {
+  /**
+   * 2D/Editor state
+   */
+  public get designManager(): DesignManager {
     return this._designManager;
+  }
+
+  /**
+   * 3D Scene state
+   */
+  public get design3DManager(): Design3DManager {
+    return this._design3DManager;
   }
 }

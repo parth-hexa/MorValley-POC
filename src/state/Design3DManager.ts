@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import type * as THREE from "three";
 import type { GlassModelConfig, GlassType } from "./types";
+import { Product3DManager } from "./Product3DManager";
 import { loadGlassModel } from "../three/loaders/modelLoader";
 import { disposeObject3D } from "../utils/disposeObject";
 import {
@@ -23,73 +24,67 @@ export class Design3DManager {
   private _sceneInitialized = false;
   private _environmentPreset: EnvironmentPreset = DEFAULT_ENVIRONMENT_PRESET;
   private _cameraState: CameraState = DEFAULT_CAMERA_STATE;
+  private _product3DManager: Product3DManager;
 
   /** Monotonically increasing token used to ignore stale async loads. */
   private loadToken = 0;
 
-  constructor() {
+  public constructor() {
+    this._product3DManager = new Product3DManager();
     makeAutoObservable(this);
   }
 
-  get currentModel(): GlassType | null {
+  public get product3DManager(): Product3DManager {
+    return this._product3DManager;
+  }
+
+  public get currentModel(): GlassType | null {
     return this._currentModel;
   }
-  set currentModel(value: GlassType | null) {
+  public setCurrentModel(value: GlassType | null) {
     this._currentModel = value;
   }
 
-  get loadedObject(): THREE.Object3D | null {
+  public get loadedObject(): THREE.Object3D | null {
     return this._loadedObject;
   }
-  set loadedObject(value: THREE.Object3D | null) {
+  public setLoadedObject(value: THREE.Object3D | null) {
     this._loadedObject = value;
   }
 
-  get isLoading(): boolean {
+  public get isLoading(): boolean {
     return this._isLoading;
   }
-  set isLoading(value: boolean) {
+  public setIsLoading(value: boolean) {
     this._isLoading = value;
   }
 
-  get loadingProgress(): number {
+  public get loadingProgress(): number {
     return this._loadingProgress;
   }
-  set loadingProgress(value: number) {
+  public setLoadingProgress(value: number) {
     this._loadingProgress = value;
   }
 
-  get sceneInitialized(): boolean {
+  public get sceneInitialized(): boolean {
     return this._sceneInitialized;
   }
-  set sceneInitialized(value: boolean) {
+  public setSceneInitialized(value: boolean) {
     this._sceneInitialized = value;
   }
 
-  get environmentPreset(): EnvironmentPreset {
+  public get environmentPreset(): EnvironmentPreset {
     return this._environmentPreset;
   }
-  set environmentPreset(value: EnvironmentPreset) {
-    this._environmentPreset = value;
+  public setEnvironmentPreset(preset: EnvironmentPreset) {
+    this._environmentPreset = preset;
   }
 
-  get cameraState(): CameraState {
+  public get cameraState(): CameraState {
     return this._cameraState;
   }
-  set cameraState(value: CameraState) {
-    this._cameraState = value;
-  }
-
-  setSceneInitialized(value: boolean) {
-    this.sceneInitialized = value;
-  }
-
-  setEnvironmentPreset(preset: EnvironmentPreset) {
-    this.environmentPreset = preset;
-  }
-
-  setCameraState(partial: Partial<CameraState>) {
-    this.cameraState = { ...this.cameraState, ...partial };
+  public setCameraState(partial: Partial<CameraState>) {
+    this._cameraState = { ...this.cameraState, ...partial };
   }
 
   /**
@@ -97,21 +92,21 @@ export class Design3DManager {
    * against duplicate/overlapping loads per the "Prevent duplicate model
    * loading" performance requirement.
    */
-  async loadModel(config: GlassModelConfig): Promise<void> {
+  public async loadModel(config: GlassModelConfig): Promise<void> {
     if (this.isLoading && this.currentModel === config.id) return;
 
     const token = ++this.loadToken;
 
     runInAction(() => {
-      this.isLoading = true;
-      this.loadingProgress = 0;
+      this.setIsLoading(true);
+      this.setLoadingProgress(0);
     });
 
     try {
       const { object } = await loadGlassModel(config, (percent) => {
         if (token !== this.loadToken) return; // a newer load superseded this one
         runInAction(() => {
-          this.loadingProgress = percent;
+          this.setLoadingProgress(percent);
         });
       });
 
@@ -123,21 +118,21 @@ export class Design3DManager {
 
       runInAction(() => {
         disposeObject3D(this.loadedObject);
-        this.loadedObject = object;
-        this.currentModel = config.id;
+        this.setLoadedObject(object);
+        this.setCurrentModel(config.id);
       });
     } finally {
       if (token === this.loadToken) {
         runInAction(() => {
-          this.isLoading = false;
+          this.setIsLoading(false);
         });
       }
     }
   }
 
-  disposeCurrentModel() {
+  public disposeCurrentModel() {
     disposeObject3D(this.loadedObject);
-    this.loadedObject = null;
-    this.currentModel = null;
+    this.setLoadedObject(null);
+    this.setCurrentModel(null);
   }
 }
