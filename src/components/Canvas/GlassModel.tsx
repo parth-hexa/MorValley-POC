@@ -44,6 +44,7 @@ export const GlassModel = observer(function GlassModel() {
   const { design3DManager } = useStores();
   const groupRef = useRef<THREE.Group>(null);
   const progressRef = useRef(0);
+  const idleRotationRef = useRef(0);
 
   useEffect(() => {
     progressRef.current = 0;
@@ -53,8 +54,9 @@ export const GlassModel = observer(function GlassModel() {
     if (!groupRef.current) return;
     progressRef.current = Math.min(1, progressRef.current + delta * 1.6);
     const eased = 1 - Math.pow(1 - progressRef.current, 3);
-    groupRef.current.scale.setScalar(eased);
-    groupRef.current.rotation.y += delta * 0.12;
+    
+    idleRotationRef.current += delta * 0.12;
+    groupRef.current.rotation.y = idleRotationRef.current + (1 - eased) * (Math.PI / 2);
   });
 
   const meshes = useMemo(() => {
@@ -119,7 +121,7 @@ export const GlassModel = observer(function GlassModel() {
   if (!design3DManager.loadedObject) return null;
 
   return (
-    <group ref={groupRef} scale={0}>
+    <group ref={groupRef}>
       <group
         position={design3DManager.loadedObject.position}
         rotation={design3DManager.loadedObject.rotation}
