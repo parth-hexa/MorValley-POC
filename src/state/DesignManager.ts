@@ -9,13 +9,21 @@ import { DEFAULT_GLASS_ID, GLASS_CATALOG, type GlassType } from "./types";
  * raw 3D concerns in Design3DManager.
  */
 export class DesignManager {
-  selectedModelId: GlassType = DEFAULT_GLASS_ID;
+  private _selectedModelId: GlassType = DEFAULT_GLASS_ID;
 
   private design3DManager: Design3DManager;
 
   constructor(design3DManager: Design3DManager) {
     this.design3DManager = design3DManager;
     makeAutoObservable<this, "design3DManager">(this, { design3DManager: false });
+  }
+
+  get selectedModelId(): GlassType {
+    return this._selectedModelId;
+  }
+
+  set selectedModelId(value: GlassType) {
+    this._selectedModelId = value;
   }
 
   get isLoading(): boolean {

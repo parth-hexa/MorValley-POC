@@ -16,21 +16,68 @@ import { DEFAULT_CAMERA_STATE, type CameraState } from "../three/camera/cameraCo
  * into three/ themselves.
  */
 export class Design3DManager {
-  currentModel: GlassType | null = null;
-  loadedObject: THREE.Object3D | null = null;
-
-  isLoading = false;
-  loadingProgress = 0;
-
-  sceneInitialized = false;
-  environmentPreset: EnvironmentPreset = DEFAULT_ENVIRONMENT_PRESET;
-  cameraState: CameraState = DEFAULT_CAMERA_STATE;
+  private _currentModel: GlassType | null = null;
+  private _loadedObject: THREE.Object3D | null = null;
+  private _isLoading = false;
+  private _loadingProgress = 0;
+  private _sceneInitialized = false;
+  private _environmentPreset: EnvironmentPreset = DEFAULT_ENVIRONMENT_PRESET;
+  private _cameraState: CameraState = DEFAULT_CAMERA_STATE;
 
   /** Monotonically increasing token used to ignore stale async loads. */
   private loadToken = 0;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  get currentModel(): GlassType | null {
+    return this._currentModel;
+  }
+  set currentModel(value: GlassType | null) {
+    this._currentModel = value;
+  }
+
+  get loadedObject(): THREE.Object3D | null {
+    return this._loadedObject;
+  }
+  set loadedObject(value: THREE.Object3D | null) {
+    this._loadedObject = value;
+  }
+
+  get isLoading(): boolean {
+    return this._isLoading;
+  }
+  set isLoading(value: boolean) {
+    this._isLoading = value;
+  }
+
+  get loadingProgress(): number {
+    return this._loadingProgress;
+  }
+  set loadingProgress(value: number) {
+    this._loadingProgress = value;
+  }
+
+  get sceneInitialized(): boolean {
+    return this._sceneInitialized;
+  }
+  set sceneInitialized(value: boolean) {
+    this._sceneInitialized = value;
+  }
+
+  get environmentPreset(): EnvironmentPreset {
+    return this._environmentPreset;
+  }
+  set environmentPreset(value: EnvironmentPreset) {
+    this._environmentPreset = value;
+  }
+
+  get cameraState(): CameraState {
+    return this._cameraState;
+  }
+  set cameraState(value: CameraState) {
+    this._cameraState = value;
   }
 
   setSceneInitialized(value: boolean) {

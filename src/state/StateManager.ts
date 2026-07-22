@@ -7,11 +7,19 @@ import { DesignManager } from "./DesignManager";
  * of state get added as a new child manager here, not as a new singleton.
  */
 export class StateManager {
-  readonly design3DManager: Design3DManager;
-  readonly designManager: DesignManager;
+  private readonly _design3DManager: Design3DManager;
+  private readonly _designManager: DesignManager;
 
   constructor() {
-    this.design3DManager = new Design3DManager();
-    this.designManager = new DesignManager(this.design3DManager);
+    this._design3DManager = new Design3DManager();
+    this._designManager = new DesignManager(this._design3DManager);
+  }
+
+  get design3DManager(): Design3DManager {
+    return this._design3DManager;
+  }
+
+  get designManager(): DesignManager {
+    return this._designManager;
   }
 }
