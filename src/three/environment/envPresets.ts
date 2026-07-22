@@ -12,4 +12,4 @@ export type EnvironmentPreset =
   | "warehouse";
 
 /** "apartment" gives soft, warm reflections that read well on clear glass. */
-export const DEFAULT_ENVIRONMENT_PRESET: EnvironmentPreset = "dawn";
+export const DEFAULT_ENVIRONMENT_PRESET: EnvironmentPreset = "apartment";

@@ -58,21 +58,35 @@ export async function loadGlassModel(
     model.position.z = -scaledCenter.z;
 
     model.traverse((child) => {
+      const childName = child.name;
+
+      let isWineLiquid = childName.includes("Rogador_Reserva_Red_750_ML") && !childName.includes("Rogador_Reserva_Red_750_ML_1");
+      let isCap = childName.includes("Rogador_Reserva_Red_750_ML_1");
+      let isOuterGlass = childName.toLowerCase().includes("outer");
+
       let isOuter = false;
       let isInner = false;
-      let curr: THREE.Object3D | null = child;
 
-      while (curr) {
-        const n = curr.name.toLowerCase();
-        if (n.includes("outer")) isOuter = true;
-        if (n.includes("inner")) isInner = true;
-        curr = curr.parent;
+      // Generic fallback checks if not specifically matched
+      if (!isWineLiquid && !isCap && !isOuterGlass) {
+        let curr: THREE.Object3D | null = child;
+        while (curr) {
+          const n = curr.name.toLowerCase();
+          if (n.includes("outer")) isOuter = true;
+          if (n.includes("inner")) isInner = true;
+          curr = curr.parent;
+        }
+      } else {
+        isInner = isWineLiquid;
+        isOuter = isOuterGlass;
       }
 
-      if (isOuter) {
-        child.renderOrder = 2;
-      } else if (isInner) {
+      if (isWineLiquid || isInner) {
         child.renderOrder = 1;
+      } else if (isOuterGlass || isOuter) {
+        child.renderOrder = 2;
+      } else if (isCap) {
+        child.renderOrder = 3;
       }
 
       if ((child as THREE.Mesh).isMesh) {
@@ -83,18 +97,26 @@ export async function loadGlassModel(
         if (mesh.material) {
           const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
           materials.forEach((mat: any) => {
-            mat.depthWrite = true;
             mat.depthTest = true;
 
-            // inner_mtr is the wine liquid fill; turn off transmission so the dark red wine liquid shows
-            if (isInner && mat.name === "inner_mtr") {
-              if ("transmission" in mat) {
-                mat.transmission = 0;
-              }
-              if (mat.color) {
-                mat.color.set("#1c0407");
-              }
+            if (isWineLiquid || (isInner && mat.name === "inner_mtr")) {
+              if ("transmission" in mat) mat.transmission = 0;
+              if (mat.color) mat.color.set("#1c0407");
               mat.roughness = 0.1;
+              mat.metalness = 0;
+              mat.transparent = false;
+              mat.depthWrite = true;
+            } else if (isCap || mat.name === "cap_matr") {
+              if ("transmission" in mat) mat.transmission = 0;
+              mat.roughness = 0.4;
+              mat.transparent = false;
+              mat.depthWrite = true;
+            } else if (isOuterGlass || isOuter) {
+              if ("transmission" in mat) mat.transmission = 1.0;
+              mat.transparent = true;
+              mat.depthWrite = false; // transmissive glass should not write depth to prevent occlusion bugs
+            } else {
+              mat.depthWrite = true;
             }
 
             mat.needsUpdate = true;
