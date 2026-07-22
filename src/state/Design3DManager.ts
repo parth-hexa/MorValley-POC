@@ -4,10 +4,7 @@ import type { GlassModelConfig, GlassType } from "./types";
 import { Product3DManager } from "./Product3DManager";
 import { loadGlassModel } from "../three/loaders/modelLoader";
 import { disposeObject3D } from "../utils/disposeObject";
-import {
-  DEFAULT_ENVIRONMENT_PRESET,
-  type EnvironmentPreset,
-} from "../three/environment/envPresets";
+
 import { DEFAULT_CAMERA_STATE, type CameraState } from "../three/camera/cameraConfig";
 
 /**
@@ -22,7 +19,6 @@ export class Design3DManager {
   private _isLoading = false;
   private _loadingProgress = 0;
   private _sceneInitialized = false;
-  private _environmentPreset: EnvironmentPreset = DEFAULT_ENVIRONMENT_PRESET;
   private _cameraState: CameraState = DEFAULT_CAMERA_STATE;
   private _product3DManager: Product3DManager;
 
@@ -73,12 +69,6 @@ export class Design3DManager {
     this._sceneInitialized = value;
   }
 
-  public get environmentPreset(): EnvironmentPreset {
-    return this._environmentPreset;
-  }
-  public setEnvironmentPreset(preset: EnvironmentPreset) {
-    this._environmentPreset = preset;
-  }
 
   public get cameraState(): CameraState {
     return this._cameraState;
