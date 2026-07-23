@@ -24,6 +24,14 @@
       "note": "750ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent"
+    },
+    {
+      "id": "wine-glass-4",
+      "name": "Rogador Reserva Red V2",
+      "glbPath": "/models/Rogador Reserva Red 750ML_V2.glb",
+      "note": "750ml",
+      "innerTwoVariant": "default",
+      "innerOneVariant": "default"
     }
   ]
 }

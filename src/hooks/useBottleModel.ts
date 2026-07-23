@@ -66,13 +66,31 @@ export function useBottleModel() {
         mesh.scale.copy(scale);
 
         const lowerName = name.toLowerCase();
+        let parentName = "";
+        let currParent: THREE.Object3D | null = mesh.parent;
+        while (currParent && currParent !== clonedRoot) {
+          if (currParent.name) {
+            parentName += " " + currParent.name.toLowerCase();
+          }
+          currParent = currParent.parent;
+        }
 
-        if (MESH_LABELS.innerTwo.some(label => lowerName.includes(label))) {
+        let matName = "";
+        if (mesh.material) {
+          if (Array.isArray(mesh.material)) {
+            matName = mesh.material.map((m) => m.name.toLowerCase()).join(" ");
+          } else {
+            matName = mesh.material.name.toLowerCase();
+          }
+        }
+        const searchTarget = `${lowerName} ${matName} ${parentName}`;
+
+        if (MESH_LABELS.innerTwo.some((label) => searchTarget.includes(label))) {
           result.innerTwo.push(mesh);
-        } else if (MESH_LABELS.innerOne.some(label => lowerName.includes(label))) {
-          result.innerOne.push(mesh);
-        } else if (MESH_LABELS.outer.some(label => lowerName.includes(label))) {
+        } else if (MESH_LABELS.outer.some((label) => searchTarget.includes(label))) {
           result.outer.push(mesh);
+        } else if (MESH_LABELS.innerOne.some((label) => searchTarget.includes(label))) {
+          result.innerOne.push(mesh);
         }
       }
     });

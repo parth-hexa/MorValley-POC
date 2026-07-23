@@ -5,28 +5,36 @@
  * All strings should be LOWERCASE. The matching is case-insensitive.
  */
 export const MESH_LABELS = {
-  // InnerTwo represents the cap, seal, or wrapper.
+  // InnerTwo represents the cap, seal, cork, or top wrapper.
   innerTwo: [
-    "rogador_reserva_red_750_ml_1",
     "cap",
+    "cork",
     "top_mtr",
     "seal_mtr",
-    "mesh005_1",
-    "mesh005_2"
+    "cap_matr",
+    "cork_mtr",
+    "mesh.019",
+    "mesh.020",
   ],
 
-  // InnerOne represents the liquid or inner glass layer.
-  // Note: Since this array is checked AFTER innerTwo, "mesh005" 
-  // will safely match the base mesh without stealing "mesh005_1".
-  innerOne: [
-    "rogador_reserva_red_750_ml",
-    "inner",
-    "mesh005"
-  ],
-
-  // Outer represents the primary exterior glass layer.
+  // Outer represents exterior labels, printed text, and decals.
   outer: [
     "outer",
-    "glass"
+    "material.002",
+    "material.003",
+    "text-mtr",
+    "text_mtr",
+    "label",
+    "decal",
+    "rogador reserva red 750 ml.002"
+  ],
+
+  // InnerOne represents the liquid or inner glass bottle body.
+  innerOne: [
+    "inner",
+    "glass",
+    "material.007",
+    "material",
+    "rogador reserva red 750 ml"
   ]
 };
