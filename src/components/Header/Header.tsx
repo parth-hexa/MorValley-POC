@@ -2,7 +2,7 @@ import { observer } from "mobx-react-lite";
 import { useStores } from "../../hooks/useStores";
 import "./Header.css";
 
-export const Header = observer(() => {
+export const Header = observer(function Header() {
   const { designManager } = useStores();
   const selectedBottle = designManager.productManager.bottle2DManager.getSelectedBottle();
 

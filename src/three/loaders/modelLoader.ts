@@ -19,6 +19,15 @@ export class ModelLoader {
   /** In-memory cache for parsed GLB model templates to allow instant model switching. */
   private static modelCache = new Map<string, THREE.Object3D>();
 
+  public static preloadBottleModel(config: BottleModelConfig) {
+    // Fire and forget to populate the cache and trigger DefaultLoadingManager
+    if (!ModelLoader.modelCache.has(config.glbPath)) {
+      ModelLoader.loadBottleModel(config).catch((err) => {
+        console.warn("Preload failed:", err);
+      });
+    }
+  }
+
   public static async loadBottleModel(
     config: BottleModelConfig,
     onProgress?: (percent: number) => void

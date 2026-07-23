@@ -3,6 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { observer } from "mobx-react-lite";
 import * as THREE from "three";
 import { useStores } from "../../hooks/useStores";
+import { useBottleLoader } from "../../hooks/useBottleLoader";
 import { createBottleMaterial } from "../../three/materials/bottleMaterial";
 
 interface MeshComponentProps {
@@ -41,16 +42,25 @@ export function Outer({ mesh }: MeshComponentProps) {
  */
 export const BottleModel = observer(function BottleModel() {
   const { design3DManager } = useStores();
+  useBottleLoader();
+  
   const groupRef = useRef<THREE.Group>(null);
   const progressRef = useRef(0);
   const idleRotationRef = useRef(0);
 
+  const loadedObject = design3DManager.meshManager.loadedObject;
+  const isOverlayVisible = design3DManager.isOverlayVisible;
+
   useEffect(() => {
     progressRef.current = 0;
-  }, [design3DManager.loadedObject]);
+  }, [loadedObject]);
 
   useFrame((_, delta) => {
     if (!groupRef.current) return;
+    
+    // Prevent animation from progressing if the loader overlay is still visible
+    if (isOverlayVisible) return;
+    
     progressRef.current = Math.min(1, progressRef.current + delta * 1.6);
     const eased = 1 - Math.pow(1 - progressRef.current, 3);
 
@@ -66,10 +76,10 @@ export const BottleModel = observer(function BottleModel() {
       outer: null as THREE.Mesh | null,
     };
 
-    if (!design3DManager.loadedObject) return result;
+    if (!loadedObject) return result;
 
     // Clone the loaded object so we don't mutate the cached source template
-    const clonedRoot = design3DManager.loadedObject.clone(true);
+    const clonedRoot = loadedObject.clone(true);
 
     clonedRoot.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
@@ -116,16 +126,16 @@ export const BottleModel = observer(function BottleModel() {
     });
 
     return result;
-  }, [design3DManager.loadedObject]);
+  }, [loadedObject]);
 
-  if (!design3DManager.loadedObject) return null;
+  if (!loadedObject) return null;
 
   return (
     <group ref={groupRef}>
       <group
-        position={design3DManager.loadedObject.position}
-        rotation={design3DManager.loadedObject.rotation}
-        scale={design3DManager.loadedObject.scale}
+        position={loadedObject.position}
+        rotation={loadedObject.rotation}
+        scale={loadedObject.scale}
       >
         <InnerOne mesh={meshes.innerOne} />
         <InnerTwo mesh={meshes.innerTwo} />

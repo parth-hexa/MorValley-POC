@@ -1,5 +1,6 @@
 import type { StateManager } from "../state/StateManager";
 import { Bottle } from "../state/Bottle";
+import { ModelLoader } from "../three/loaders/modelLoader";
 import type { BottleModelConfig } from "../state/types";
 
 // For now, we simulate an API fetch by directly importing the JSON.
@@ -22,8 +23,11 @@ export class Parser {
 
     // Load the default bottle model
     if (defaultBottleId) {
-      await stateManager.designManager.selectModel(defaultBottleId);
+      const config = catalog.find(c => c.id === defaultBottleId) || catalog[0];
+      ModelLoader.preloadBottleModel(config);
+      await stateManager.designManager.selectModel(config.id);
     } else if (catalog.length > 0) {
+      ModelLoader.preloadBottleModel(catalog[0]);
       await stateManager.designManager.selectModel(catalog[0].id);
     }
   }
