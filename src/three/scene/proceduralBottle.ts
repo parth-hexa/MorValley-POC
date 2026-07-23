@@ -1,6 +1,6 @@
 import * as THREE from "three";
-import { createGlassMaterial, createBaseMaterial } from "../materials/glassMaterial";
-import type { GlassType } from "../../state/types";
+import { createBottleMaterial, createBaseMaterial } from "../materials/bottleMaterial";
+import type { BottleType } from "../../state/types";
 
 /**
  * Profile points describe the lathe cross-section, from the base of the foot
@@ -9,7 +9,7 @@ import type { GlassType } from "../../state/types";
  */
 type Profile = [number, number][];
 
-const PROFILES: Record<GlassType, Profile> = {
+const PROFILES: Record<BottleType, Profile> = {
   classic: [
     [0.55, 0],
     [0.55, 0.03],
@@ -70,27 +70,25 @@ const PROFILES: Record<GlassType, Profile> = {
 };
 
 /**
- * Builds a stand-in wine glass mesh for a given type using THREE.LatheGeometry.
- * This exists so the viewer is fully functional without real .glb assets in
- * public/models — the loader (see three/loaders/modelLoader.ts) falls back
- * to this when the real asset can't be fetched. Swapping in real GLBs later
- * requires no changes to consuming components.
+ * Builds a stand-in wine bottle mesh for a given type using THREE.LatheGeometry.
+ * 
+ * NOTE: The geometry is created once and attached to a new material per instance.
  */
-export function generateProceduralGlass(type: GlassType): THREE.Group {
+export function generateProceduralBottle(type: BottleType): THREE.Group {
   const profile = PROFILES[type];
   const points = profile.map(([r, y]) => new THREE.Vector2(r * 0.6, y * 0.6));
 
   const geometry = new THREE.LatheGeometry(points, 64);
   geometry.computeVertexNormals();
 
-  const glass = new THREE.Mesh(geometry, createGlassMaterial());
-  glass.castShadow = false;
-  glass.receiveShadow = false;
-  glass.name = `glass-${type}`;
+  const bottle = new THREE.Mesh(geometry, createBottleMaterial());
+  bottle.castShadow = false;
+  bottle.receiveShadow = false;
+  bottle.name = `bottle-${type}`;
 
   const group = new THREE.Group();
-  group.name = `wine-glass-${type}`;
-  group.add(glass);
+  group.name = `wine-bottle-${type}`;
+  group.add(bottle);
 
   // Small foot disc for the stemmed variants to ground the silhouette visually.
   if (type !== "stemless") {

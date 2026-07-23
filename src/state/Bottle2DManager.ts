@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import type { Bottle } from "./Bottle";
-import type { GlassType } from "./types";
+import type { BottleType } from "./types";
 
 export class Bottle2DManager {
   private _bottles: Bottle[] = [];
-  private _selectedBottleId: GlassType | null = null;
+  private _selectedBottleId: BottleType | null = null;
 
   public constructor() {
     makeAutoObservable(this);
@@ -14,11 +14,11 @@ export class Bottle2DManager {
     return this._bottles;
   }
 
-  public get selectedBottleId(): GlassType | null {
+  public get selectedBottleId(): BottleType | null {
     return this._selectedBottleId;
   }
 
-  public setSelectedBottleId(value: GlassType) {
+  public setSelectedBottleId(value: BottleType | null) {
     this._selectedBottleId = value;
   }
 
@@ -26,7 +26,7 @@ export class Bottle2DManager {
     this._bottles.push(bottle);
   }
 
-  public getBottleById(id: GlassType): Bottle | undefined {
+  public getBottleById(id: BottleType): Bottle | undefined {
     return this._bottles.find((b) => b.id === id);
   }
 

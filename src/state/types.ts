@@ -1,7 +1,7 @@
-export type GlassType = string;
+export type BottleType = string;
 
-export interface GlassModelConfig {
-  id: GlassType;
+export interface BottleModelConfig {
+  id: BottleType;
   name: string;
   glbPath: string;
   note: string;

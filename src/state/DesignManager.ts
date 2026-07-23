@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import type { Design3DManager } from "./Design3DManager";
 import { ProductManager } from "./ProductManager";
-import type { GlassType, GlassModelConfig } from "./types";
+import type { BottleType, BottleModelConfig } from "./types";
 
 /**
  * Owns 2D/editor-facing state. Today that's just the selected model and
@@ -28,7 +28,7 @@ export class DesignManager {
     return this.design3DManager.isLoading;
   }
 
-  public async selectModel(modelId: GlassType) {
+  public async selectModel(modelId: BottleType) {
     const bottle2DManager = this.productManager.bottle2DManager;
     if (modelId === bottle2DManager.selectedBottleId && this.design3DManager.currentModel === modelId) {
       return;
@@ -37,7 +37,7 @@ export class DesignManager {
     const bottle = bottle2DManager.getBottleById(modelId);
     if (bottle) {
       bottle2DManager.setSelectedBottleId(modelId);
-      const config: GlassModelConfig = {
+      const config: BottleModelConfig = {
         id: bottle.id,
         name: bottle.name,
         glbPath: bottle.glbPath,

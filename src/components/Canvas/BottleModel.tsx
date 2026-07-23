@@ -3,20 +3,20 @@ import { useFrame } from "@react-three/fiber";
 import { observer } from "mobx-react-lite";
 import * as THREE from "three";
 import { useStores } from "../../hooks/useStores";
-import { createGlassMaterial } from "../../three/materials/glassMaterial";
+import { createBottleMaterial } from "../../three/materials/bottleMaterial";
 
 interface MeshComponentProps {
   mesh: THREE.Mesh | null;
 }
 
 export function InnerOne({ mesh }: MeshComponentProps) {
-  const glassMaterial = useMemo(() => createGlassMaterial(), []);
+  const bottleMaterial = useMemo(() => createBottleMaterial(), []);
 
   useEffect(() => {
     if (mesh) {
-      mesh.material = glassMaterial;
+      mesh.material = bottleMaterial;
     }
-  }, [mesh, glassMaterial]);
+  }, [mesh, bottleMaterial]);
 
   if (!mesh) return null;
   return <primitive object={mesh} />;
@@ -37,9 +37,9 @@ export function Outer({ mesh }: MeshComponentProps) {
  * doubles as the "new model fades in" requirement from the PRD — a true
  * opacity fade reads poorly on transmissive glass materials, so we animate
  * scale with an ease-out curve instead, plus a slow idle rotation so the
- * glass reads as three-dimensional even before the user touches the camera.
+ * bottle reads as three-dimensional even before the user touches the camera.
  */
-export const GlassModel = observer(function GlassModel() {
+export const BottleModel = observer(function BottleModel() {
   const { design3DManager } = useStores();
   const groupRef = useRef<THREE.Group>(null);
   const progressRef = useRef(0);

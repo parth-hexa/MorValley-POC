@@ -1,24 +1,25 @@
 import { makeAutoObservable } from "mobx";
 import { ElementManager } from "./ElementManager";
-import type { GlassType } from "./types";
+import type { BottleType } from "./types";
 
 export class Bottle {
-  private _id: GlassType;
+  private _id: BottleType;
   private _name: string;
   private _glbPath: string;
   private _note: string;
   private _elementManager: ElementManager;
 
-  public constructor(id: GlassType, name: string, glbPath: string, note: string) {
+  public constructor(id: BottleType, name: string, glbPath: string, note: string) {
     this._id = id;
     this._name = name;
     this._glbPath = glbPath;
     this._note = note;
     this._elementManager = new ElementManager();
+    
     makeAutoObservable(this);
   }
 
-  public get id(): GlassType {
+  public get id(): BottleType {
     return this._id;
   }
 

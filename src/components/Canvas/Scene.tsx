@@ -6,7 +6,7 @@ import { useStores } from "../../hooks/useStores";
 import { Lighting } from "./Lighting";
 import { EnvironmentSetup } from "./EnvironmentSetup";
 import { CameraControls } from "./CameraControls";
-import { GlassModel } from "./GlassModel";
+import { BottleModel } from "./BottleModel";
 import { LogoBackDrop } from "./LogoBackDrop";
 import "./Scene.css";
 
@@ -37,7 +37,7 @@ export const Scene = observer(function Scene() {
         <Suspense fallback={null}>
           <EnvironmentSetup />
           <Lighting />
-          <GlassModel />
+          <BottleModel />
           <ContactShadows
             position={[0, -1.0, 0]}
             opacity={0.35}

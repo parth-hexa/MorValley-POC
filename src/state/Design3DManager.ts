@@ -1,8 +1,8 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import type * as THREE from "three";
-import type { GlassModelConfig, GlassType } from "./types";
+import type { BottleModelConfig, BottleType } from "./types";
 import { Product3DManager } from "./Product3DManager";
-import { loadGlassModel } from "../three/loaders/modelLoader";
+import { loadBottleModel } from "../three/loaders/modelLoader";
 import { disposeObject3D } from "../utils/disposeObject";
 
 import { DEFAULT_CAMERA_STATE, type CameraState } from "../three/camera/cameraConfig";
@@ -14,7 +14,7 @@ import { DEFAULT_CAMERA_STATE, type CameraState } from "../three/camera/cameraCo
  * into three/ themselves.
  */
 export class Design3DManager {
-  private _currentModel: GlassType | null = null;
+  private _currentModel: BottleType | null = null;
   private _loadedObject: THREE.Object3D | null = null;
   private _isLoading = false;
   private _loadingProgress = 0;
@@ -34,10 +34,10 @@ export class Design3DManager {
     return this._product3DManager;
   }
 
-  public get currentModel(): GlassType | null {
+  public get currentModel(): BottleType | null {
     return this._currentModel;
   }
-  public setCurrentModel(value: GlassType | null) {
+  public setCurrentModel(value: BottleType | null) {
     this._currentModel = value;
   }
 
@@ -78,11 +78,11 @@ export class Design3DManager {
   }
 
   /**
-   * Loads a new glass model, disposing the previous one first. Guards
+   * Loads a new bottle model, disposing the previous one first. Guards
    * against duplicate/overlapping loads per the "Prevent duplicate model
    * loading" performance requirement.
    */
-  public async loadModel(config: GlassModelConfig): Promise<void> {
+  public async loadModel(config: BottleModelConfig): Promise<void> {
     if (this.isLoading && this.currentModel === config.id) return;
 
     const token = ++this.loadToken;
@@ -93,7 +93,7 @@ export class Design3DManager {
     });
 
     try {
-      const { object } = await loadGlassModel(config, (percent) => {
+      const { object } = await loadBottleModel(config, (percent) => {
         if (token !== this.loadToken) return; // a newer load superseded this one
         runInAction(() => {
           this.setLoadingProgress(percent);

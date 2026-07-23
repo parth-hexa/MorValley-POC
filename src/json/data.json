@@ -1,5 +1,5 @@
 {
-  "defaultGlassId": "wine-glass-1",
+  "defaultBottleId": "wine-glass-1",
   "catalog": [
     {
       "id": "wine-glass-1",

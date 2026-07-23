@@ -5,24 +5,24 @@ import * as THREE from "three";
  * "material editing" work (see PRD future expansion) has a single source
  * to extend rather than hunting through geometry code.
  */
-export function createGlassMaterial2(): THREE.MeshPhysicalMaterial {
+export function createBottleMaterial2(): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color("#5c5c5c"), // Base color must be white for transmission to work properly
+    color: "#612929",
+    transmission: 1, // Full transmission for glass
+    opacity: 1, // Must be 1 for transmission to work correctly
     metalness: 0,
-    roughness: 0.1,
-    transmission: 1,
-    thickness: 8, // Lower thickness makes it less opaque
-    ior: 1.5,
-    envMapIntensity: 1.4,
-    // clearcoat: 0.4,
-    // clearcoatRoughness: 0.1,
-    attenuationColor: new THREE.Color("#2f4a2d"),
-    attenuationDistance: 0.6, // Light travels further before darkening, making it translucent
+    roughness: 0.1, // Slight roughness for realism
+    ior: 1.5, // Index of Refraction (1.5 is typical for glass)
+    thickness: 100, // Volume thickness for refraction/attenuation
+    attenuationColor: new THREE.Color("#4a1b1b"), // Deep red absorption
+    attenuationDistance: 10, // How far light travels before taking the color
+    clearcoat: 0.5,
+    clearcoatRoughness: 0.1,
     transparent: true,
-    depthWrite: true,
+    depthWrite: false, // Prevents occlusion issues with transmissive materials
   });
 }
-export function createGlassMaterial(): THREE.MeshPhysicalMaterial {
+export function createBottleMaterial(): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
     color: "#342f2f",
     transmission: 1,

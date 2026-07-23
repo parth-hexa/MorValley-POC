@@ -1,6 +1,6 @@
 import type { StateManager } from "../state/StateManager";
 import { Bottle } from "../state/Bottle";
-import type { GlassModelConfig } from "../state/types";
+import type { BottleModelConfig } from "../state/types";
 
 // For now, we simulate an API fetch by directly importing the JSON.
 // In the future, this can be swapped with a real `fetch('/api/data.json')`
@@ -8,7 +8,7 @@ import data from "../json/data.json";
 
 export class Parser {
   public async loadData(stateManager: StateManager): Promise<void> {
-    const { defaultGlassId, catalog } = data as { defaultGlassId: string; catalog: GlassModelConfig[] };
+    const { defaultBottleId, catalog } = data as { defaultBottleId: string; catalog: BottleModelConfig[] };
 
     const bottle2DManager = stateManager.designManager.productManager.bottle2DManager;
 
@@ -21,8 +21,8 @@ export class Parser {
     }
 
     // Load the default bottle model
-    if (defaultGlassId) {
-      await stateManager.designManager.selectModel(defaultGlassId);
+    if (defaultBottleId) {
+      await stateManager.designManager.selectModel(defaultBottleId);
     } else if (catalog.length > 0) {
       await stateManager.designManager.selectModel(catalog[0].id);
     }

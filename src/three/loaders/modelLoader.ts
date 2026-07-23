@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import type { GlassModelConfig } from "../../state/types";
-import { generateProceduralGlass } from "../scene/proceduralGlass";
+import type { BottleModelConfig } from "../../state/types";
+import { generateProceduralBottle } from "../scene/proceduralBottle";
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
@@ -19,8 +19,8 @@ export interface LoadResult {
   fromAsset: boolean;
 }
 
-export async function loadGlassModel(
-  config: GlassModelConfig,
+export async function loadBottleModel(
+  config: BottleModelConfig,
   onProgress?: (percent: number) => void
 ): Promise<LoadResult> {
   // Check if model is already cached for instant switching
@@ -62,13 +62,13 @@ export async function loadGlassModel(
 
       let isWineLiquid = childName.includes("Rogador_Reserva_Red_750_ML") && !childName.includes("Rogador_Reserva_Red_750_ML_1");
       let isCap = childName.includes("Rogador_Reserva_Red_750_ML_1");
-      let isOuterGlass = childName.toLowerCase().includes("outer");
+      let isOuterBottle = childName.toLowerCase().includes("outer");
 
       let isOuter = false;
       let isInner = false;
 
       // Generic fallback checks if not specifically matched
-      if (!isWineLiquid && !isCap && !isOuterGlass) {
+      if (!isWineLiquid && !isCap && !isOuterBottle) {
         let curr: THREE.Object3D | null = child;
         while (curr) {
           const n = curr.name.toLowerCase();
@@ -78,12 +78,12 @@ export async function loadGlassModel(
         }
       } else {
         isInner = isWineLiquid;
-        isOuter = isOuterGlass;
+        isOuter = isOuterBottle;
       }
 
       if (isWineLiquid || isInner) {
         child.renderOrder = 1;
-      } else if (isOuterGlass || isOuter) {
+      } else if (isOuterBottle || isOuter) {
         child.renderOrder = 2;
       } else if (isCap) {
         child.renderOrder = 3;
@@ -111,7 +111,7 @@ export async function loadGlassModel(
               mat.roughness = 0.4;
               mat.transparent = false;
               mat.depthWrite = true;
-            } else if (isOuterGlass || isOuter) {
+            } else if (isOuterBottle || isOuter) {
               if ("transmission" in mat) mat.transmission = 1.0;
               mat.transparent = true;
               mat.depthWrite = false; // transmissive glass should not write depth to prevent occlusion bugs
@@ -137,7 +137,7 @@ export async function loadGlassModel(
 }
 
 function simulateProceduralLoad(
-  config: GlassModelConfig,
+  config: BottleModelConfig,
   onProgress?: (percent: number) => void
 ): Promise<LoadResult> {
   return new Promise((resolve) => {
@@ -146,7 +146,7 @@ function simulateProceduralLoad(
       percent = Math.min(100, percent + 25);
       onProgress?.(Math.round(percent));
       if (percent >= 100) {
-        resolve({ object: generateProceduralGlass(config.id), fromAsset: false });
+        resolve({ object: generateProceduralBottle(config.id), fromAsset: false });
       } else {
         setTimeout(step, 80);
       }
