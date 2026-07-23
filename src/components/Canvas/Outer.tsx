@@ -1,10 +1,14 @@
 import * as THREE from "three";
 
-export interface MeshComponentProps {
-  mesh: THREE.Mesh | null;
-}
+export type { MeshComponentProps } from "./InnerOne";
 
-export function Outer({ mesh }: MeshComponentProps) {
-  if (!mesh) return null;
-  return <primitive object={mesh} />;
+export function Outer({ meshes }: { meshes: THREE.Mesh[] }) {
+  if (meshes.length === 0) return null;
+  return (
+    <>
+      {meshes.map((mesh, i) => (
+        <primitive key={`outer-${i}`} object={mesh} />
+      ))}
+    </>
+  );
 }

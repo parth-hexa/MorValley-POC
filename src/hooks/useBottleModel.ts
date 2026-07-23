@@ -3,9 +3,10 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useStores } from "./useStores";
 import { useBottleLoader } from "./useBottleLoader";
+import { MESH_LABELS } from "../config/meshLabels";
 
 export function useBottleModel() {
-  const { design3DManager } = useStores();
+  const { design3DManager, designManager } = useStores();
   useBottleLoader();
 
   const groupRef = useRef<THREE.Group>(null);
@@ -34,9 +35,9 @@ export function useBottleModel() {
 
   const meshes = useMemo(() => {
     const result = {
-      innerOne: null as THREE.Mesh | null,
-      innerTwo: null as THREE.Mesh | null,
-      outer: null as THREE.Mesh | null,
+      innerOne: [] as THREE.Mesh[],
+      innerTwo: [] as THREE.Mesh[],
+      outer: [] as THREE.Mesh[],
     };
 
     if (!loadedObject) return result;
@@ -64,23 +65,14 @@ export function useBottleModel() {
         mesh.quaternion.copy(quaternion);
         mesh.scale.copy(scale);
 
-        if (
-          name.includes("Rogador_Reserva_Red_750_ML_1") ||
-          name.includes("cap") ||
-          name.includes("top_mtr") ||
-          name.includes("seal_mtr")
-        ) {
-          result.innerTwo = mesh;
-        } else if (
-          name.includes("Rogador_Reserva_Red_750_ML") ||
-          name.includes("inner")
-        ) {
-          result.innerOne = mesh;
-        } else if (
-          name.toLowerCase().includes("outer") ||
-          name.toLowerCase().includes("glass")
-        ) {
-          result.outer = mesh;
+        const lowerName = name.toLowerCase();
+
+        if (MESH_LABELS.innerTwo.some(label => lowerName.includes(label))) {
+          result.innerTwo.push(mesh);
+        } else if (MESH_LABELS.innerOne.some(label => lowerName.includes(label))) {
+          result.innerOne.push(mesh);
+        } else if (MESH_LABELS.outer.some(label => lowerName.includes(label))) {
+          result.outer.push(mesh);
         }
       }
     });
@@ -88,9 +80,14 @@ export function useBottleModel() {
     return result;
   }, [loadedObject]);
 
+  const selectedBottleId = design3DManager.currentModel;
+  const selectedBottle = designManager.productManager.bottle2DManager.getBottleById(selectedBottleId || "");
+  const innerTwoVariant = selectedBottle?.innerTwoVariant || "custom";
+
   return {
     groupRef,
     loadedObject,
-    meshes
+    meshes,
+    innerTwoVariant
   };
 }

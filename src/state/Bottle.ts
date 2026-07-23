@@ -7,13 +7,15 @@ export class Bottle {
   private _name: string;
   private _glbPath: string;
   private _note: string;
+  private _innerTwoVariant: "default" | "custom";
   private _elementManager: ElementManager;
 
-  public constructor(id: BottleType, name: string, glbPath: string, note: string) {
+  public constructor(id: BottleType, name: string, glbPath: string, note: string, innerTwoVariant: "default" | "custom" = "custom") {
     this._id = id;
     this._name = name;
     this._glbPath = glbPath;
     this._note = note;
+    this._innerTwoVariant = innerTwoVariant;
     this._elementManager = new ElementManager();
     
     makeAutoObservable(this);
@@ -37,5 +39,9 @@ export class Bottle {
 
   public get elementManager(): ElementManager {
     return this._elementManager;
+  }
+
+  public get innerTwoVariant(): "default" | "custom" {
+    return this._innerTwoVariant;
   }
 }

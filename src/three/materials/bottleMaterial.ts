@@ -44,3 +44,14 @@ export function createBaseMaterial(): THREE.MeshStandardMaterial {
     roughness: 0.15,
   });
 }
+
+export function createWaxMaterial(): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color: "#6c512e",
+    metalness: 0,
+    roughness: 0.45,
+    transmission: 0.35,
+    thickness: 2,
+    ior: 1.44,
+  });
+}

@@ -5,4 +5,5 @@ export interface BottleModelConfig {
   name: string;
   glbPath: string;
   note: string;
+  innerTwoVariant?: "default" | "custom";
 }

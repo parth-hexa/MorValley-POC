@@ -31,7 +31,8 @@ export function useBottleLoader() {
       id: bottle.id,
       name: bottle.name,
       glbPath: bottle.glbPath,
-      note: bottle.note
+      note: bottle.note,
+      innerTwoVariant: bottle.innerTwoVariant
     };
 
     const token = ++loadTokenRef.current;

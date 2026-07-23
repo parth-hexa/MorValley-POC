@@ -11,7 +11,8 @@
       "id": "wine-glass-2",
       "name": "Magnum Douro Reserva",
       "glbPath": "/models/Wine_Glass_2.glb",
-      "note": "1500ml"
+      "note": "1500ml",
+      "innerTwoVariant": "default"
     }
   ]
 }

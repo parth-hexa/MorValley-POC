@@ -16,7 +16,7 @@ export class Parser {
     // Parse the catalog array into Bottle instances
     for (const item of catalog) {
       if (!bottle2DManager.getBottleById(item.id)) {
-        const bottle = new Bottle(item.id, item.name, item.glbPath, item.note);
+        const bottle = new Bottle(item.id, item.name, item.glbPath, item.note, item.innerTwoVariant);
         bottle2DManager.addBottle(bottle);
       }
     }

@@ -1,39 +1,70 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { useControls } from "leva";
+import { createWaxMaterial } from "../../three/materials/bottleMaterial";
+import { COPPER_MATERIAL_CONFIG, DEFAULT_CAP_CONFIG } from "../../config/levaConfig";
 
 export interface MeshComponentProps {
-  mesh: THREE.Mesh | null;
+  meshes: THREE.Mesh[];
+  innerTwoVariant?: "default" | "custom";
 }
 
-export function InnerTwo({ mesh }: MeshComponentProps) {
+export function InnerTwo({ meshes, innerTwoVariant = "custom" }: MeshComponentProps) {
   const { gl } = useThree();
+  const waxMaterial = useMemo(() => createWaxMaterial(), []);
+
+  const { defaultColor } = useControls("Default Cap Material", DEFAULT_CAP_CONFIG);
+  const copperConfig = useControls("Copper Cap Material", COPPER_MATERIAL_CONFIG);
 
   useEffect(() => {
-    if (mesh && mesh.material) {
-      const clonedMaterial = (mesh.material as THREE.MeshStandardMaterial).clone();
+    meshes.forEach((mesh) => {
+      if (!mesh.material) return;
       
-      // Remove base map so it doesn't darken the custom color
-      clonedMaterial.map = null; 
-      
-      // Apply vibrant copper properties
-      clonedMaterial.color.set("#d94b0d");
-      clonedMaterial.metalness = 0.85;
-      clonedMaterial.roughness = 0.35;
-      clonedMaterial.envMapIntensity = 2.0;
-      
-      // Fix texture blurring at glancing angles/distances using Anisotropic Filtering
-      const maxAnisotropy = gl.capabilities.getMaxAnisotropy();
-      if (clonedMaterial.normalMap) {
-        clonedMaterial.normalMap.anisotropy = maxAnisotropy;
-        clonedMaterial.normalMap.needsUpdate = true;
+      if (innerTwoVariant === "default") {
+        waxMaterial.color.set(defaultColor);
+        waxMaterial.needsUpdate = true;
+        
+        // If the mesh has a normal map from the GLTF, apply it to our wax material and fix anisotropy
+        const originalMat = mesh.material as THREE.MeshStandardMaterial;
+        if (originalMat.normalMap && waxMaterial.normalMap !== originalMat.normalMap) {
+          waxMaterial.normalMap = originalMat.normalMap;
+          waxMaterial.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
+        }
+        
+        mesh.material = waxMaterial;
+        return;
       }
       
-      clonedMaterial.needsUpdate = true;
-      mesh.material = clonedMaterial;
-    }
-  }, [mesh, gl]);
+      let targetMaterial = mesh.material as THREE.MeshStandardMaterial;
+      if (!(targetMaterial as any).isCustomCopper) {
+        targetMaterial = targetMaterial.clone();
+        (targetMaterial as any).isCustomCopper = true;
+        targetMaterial.map = null; // Remove base map so it doesn't darken the custom color
+        
+        // Fix texture blurring at glancing angles/distances using Anisotropic Filtering
+        if (targetMaterial.normalMap) {
+          targetMaterial.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
+          targetMaterial.normalMap.needsUpdate = true;
+        }
+        mesh.material = targetMaterial;
+      }
+      
+      // Apply vibrant copper properties dynamically from Leva
+      targetMaterial.color.set(copperConfig.color);
+      targetMaterial.metalness = copperConfig.metalness;
+      targetMaterial.roughness = copperConfig.roughness;
+      targetMaterial.envMapIntensity = copperConfig.envMapIntensity;
+      targetMaterial.needsUpdate = true;
+    });
+  }, [meshes, gl, innerTwoVariant, copperConfig, defaultColor, waxMaterial]);
 
-  if (!mesh) return null;
-  return <primitive object={mesh} />;
+  if (meshes.length === 0) return null;
+  return (
+    <>
+      {meshes.map((mesh, index) => (
+        <primitive key={`innerTwo-${index}`} object={mesh} />
+      ))}
+    </>
+  );
 }

@@ -3,18 +3,24 @@ import * as THREE from "three";
 import { createBottleMaterial } from "../../three/materials/bottleMaterial";
 
 export interface MeshComponentProps {
-  mesh: THREE.Mesh | null;
+  meshes: THREE.Mesh[];
 }
 
-export function InnerOne({ mesh }: MeshComponentProps) {
+export function InnerOne({ meshes }: MeshComponentProps) {
   const bottleMaterial = useMemo(() => createBottleMaterial(), []);
 
   useEffect(() => {
-    if (mesh) {
+    meshes.forEach(mesh => {
       mesh.material = bottleMaterial;
-    }
-  }, [mesh, bottleMaterial]);
+    });
+  }, [meshes, bottleMaterial]);
 
-  if (!mesh) return null;
-  return <primitive object={mesh} />;
+  if (meshes.length === 0) return null;
+  return (
+    <>
+      {meshes.map((mesh, i) => (
+        <primitive key={`innerOne-${i}`} object={mesh} />
+      ))}
+    </>
+  );
 }
