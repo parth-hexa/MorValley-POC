@@ -83,11 +83,13 @@ export function useBottleModel() {
   const selectedBottleId = design3DManager.currentModel;
   const selectedBottle = designManager.productManager.bottle2DManager.getBottleById(selectedBottleId || "");
   const innerTwoVariant = selectedBottle?.innerTwoVariant || "default";
+  const innerOneVariant = selectedBottle?.innerOneVariant || "black";
 
   return {
     groupRef,
     loadedObject,
     meshes,
-    innerTwoVariant
+    innerTwoVariant,
+    innerOneVariant
   };
 }

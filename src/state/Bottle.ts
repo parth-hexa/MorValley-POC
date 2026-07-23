@@ -8,14 +8,16 @@ export class Bottle {
   private _glbPath: string;
   private _note: string;
   private _innerTwoVariant: "copper" | "wax" | "default";
+  private _innerOneVariant: "black" | "transparent" | "default";
   private _elementManager: ElementManager;
 
-  public constructor(id: BottleType, name: string, glbPath: string, note: string, innerTwoVariant: "copper" | "wax" | "default" = "default") {
+  public constructor(id: BottleType, name: string, glbPath: string, note: string, innerTwoVariant: "copper" | "wax" | "default" = "default", innerOneVariant: "black" | "transparent" | "default" = "black") {
     this._id = id;
     this._name = name;
     this._glbPath = glbPath;
     this._note = note;
     this._innerTwoVariant = innerTwoVariant;
+    this._innerOneVariant = innerOneVariant;
     this._elementManager = new ElementManager();
     
     makeAutoObservable(this);
@@ -43,5 +45,9 @@ export class Bottle {
 
   public get innerTwoVariant(): "copper" | "wax" | "default" {
     return this._innerTwoVariant;
+  }
+
+  public get innerOneVariant(): "black" | "transparent" | "default" {
+    return this._innerOneVariant;
   }
 }

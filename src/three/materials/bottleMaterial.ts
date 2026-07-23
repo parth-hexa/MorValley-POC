@@ -55,3 +55,20 @@ export function createWaxMaterial(): THREE.MeshPhysicalMaterial {
     ior: 1.44,
   });
 }
+
+export function createTransparentGlassMaterial(): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color: "#ffffff",
+    transmission: 1,
+    opacity: 1,
+    metalness: 0,
+    roughness: 0.05,
+    ior: 1.4,
+    thickness: 0,
+    envMapIntensity: 2,
+    clearcoat: 1,
+    clearcoatRoughness: 0,
+    transparent: false,
+    side: THREE.DoubleSide,
+  });
+}

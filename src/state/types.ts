@@ -6,4 +6,5 @@ export interface BottleModelConfig {
   glbPath: string;
   note: string;
   innerTwoVariant?: "copper" | "wax" | "default";
+  innerOneVariant?: "black" | "transparent" | "default";
 }

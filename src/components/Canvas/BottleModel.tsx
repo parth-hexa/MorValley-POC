@@ -12,18 +12,18 @@ import { useBottleModel } from "../../hooks/useBottleModel";
  * bottle reads as three-dimensional even before the user touches the camera.
  */
 export const BottleModel = observer(function BottleModel() {
-  const { groupRef, loadedObject, meshes, innerTwoVariant } = useBottleModel();
+  const { groupRef, loadedObject, meshes, innerTwoVariant, innerOneVariant } = useBottleModel();
 
   if (!loadedObject) return null;
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} dispose={null}>
       <group
         position={loadedObject.position}
         rotation={loadedObject.rotation}
         scale={loadedObject.scale}
       >
-        <InnerOne meshes={meshes.innerOne} />
+        <InnerOne meshes={meshes.innerOne} innerOneVariant={innerOneVariant} />
         <InnerTwo meshes={meshes.innerTwo} innerTwoVariant={innerTwoVariant} />
         <Outer meshes={meshes.outer} />
       </group>
