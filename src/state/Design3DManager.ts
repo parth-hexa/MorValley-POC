@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import type * as THREE from "three";
 import type { BottleModelConfig, BottleType } from "./types";
 import { Product3DManager } from "./Product3DManager";
-import { loadBottleModel } from "../three/loaders/modelLoader";
+import { ModelLoader } from "../three/loaders/modelLoader";
 import { disposeObject3D } from "../utils/disposeObject";
 
 import { DEFAULT_CAMERA_STATE, type CameraState } from "../three/camera/cameraConfig";
@@ -93,7 +93,7 @@ export class Design3DManager {
     });
 
     try {
-      const { object } = await loadBottleModel(config, (percent) => {
+      const { object } = await ModelLoader.loadBottleModel(config, (percent) => {
         if (token !== this.loadToken) return; // a newer load superseded this one
         runInAction(() => {
           this.setLoadingProgress(percent);

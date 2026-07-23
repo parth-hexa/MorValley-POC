@@ -35,7 +35,7 @@ export function Outer({ mesh }: MeshComponentProps) {
 /**
  * Renders whatever Design3DManager currently has loaded. Scale-based grow-in
  * doubles as the "new model fades in" requirement from the PRD — a true
- * opacity fade reads poorly on transmissive glass materials, so we animate
+ * opacity fade reads poorly on transmissive glass materials, so we animate 
  * scale with an ease-out curve instead, plus a slow idle rotation so the
  * bottle reads as three-dimensional even before the user touches the camera.
  */
