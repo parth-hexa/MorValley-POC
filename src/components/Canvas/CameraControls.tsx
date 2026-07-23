@@ -20,10 +20,12 @@ export const CameraControls = observer(function CameraControls() {
         maxDistance={cameraState.maxDistance}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 3.5}
-        enableDamping
-        dampingFactor={0.08}
-        rotateSpeed={0.6}
+        enableDamping={true}
+        dampingFactor={0.035}
+        rotateSpeed={0.4}
+        zoomSpeed={0.3}
       />
     </>
   );
 });
+
