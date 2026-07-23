@@ -82,7 +82,7 @@ export function useBottleModel() {
 
   const selectedBottleId = design3DManager.currentModel;
   const selectedBottle = designManager.productManager.bottle2DManager.getBottleById(selectedBottleId || "");
-  const innerTwoVariant = selectedBottle?.innerTwoVariant || "custom";
+  const innerTwoVariant = selectedBottle?.innerTwoVariant || "default";
 
   return {
     groupRef,

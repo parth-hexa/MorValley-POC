@@ -7,28 +7,38 @@ import { COPPER_MATERIAL_CONFIG, DEFAULT_CAP_CONFIG } from "../../config/levaCon
 
 export interface MeshComponentProps {
   meshes: THREE.Mesh[];
-  innerTwoVariant?: "default" | "custom";
+  innerTwoVariant?: "copper" | "wax" | "default";
 }
 
-export function InnerTwo({ meshes, innerTwoVariant = "custom" }: MeshComponentProps) {
+export function InnerTwo({ meshes, innerTwoVariant = "default" }: MeshComponentProps) {
   const { gl } = useThree();
   const waxMaterial = useMemo(() => createWaxMaterial(), []);
 
-  const { defaultColor } = useControls("Default Cap Material", DEFAULT_CAP_CONFIG);
+  const { defaultColor: waxColor } = useControls("Wax Cap Material", DEFAULT_CAP_CONFIG);
   const copperConfig = useControls("Copper Cap Material", COPPER_MATERIAL_CONFIG);
 
   useEffect(() => {
     meshes.forEach((mesh) => {
       if (!mesh.material) return;
       
+      let targetMaterial = mesh.material as THREE.MeshStandardMaterial;
+
       if (innerTwoVariant === "default") {
-        waxMaterial.color.set(defaultColor);
+        // Just leave the original GLTF material, only apply anisotropy
+        if (targetMaterial.normalMap) {
+          targetMaterial.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
+          targetMaterial.normalMap.needsUpdate = true;
+        }
+        return;
+      }
+      
+      if (innerTwoVariant === "wax") {
+        waxMaterial.color.set(waxColor);
         waxMaterial.needsUpdate = true;
         
         // If the mesh has a normal map from the GLTF, apply it to our wax material and fix anisotropy
-        const originalMat = mesh.material as THREE.MeshStandardMaterial;
-        if (originalMat.normalMap && waxMaterial.normalMap !== originalMat.normalMap) {
-          waxMaterial.normalMap = originalMat.normalMap;
+        if (targetMaterial.normalMap && waxMaterial.normalMap !== targetMaterial.normalMap) {
+          waxMaterial.normalMap = targetMaterial.normalMap;
           waxMaterial.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
         }
         
@@ -36,13 +46,12 @@ export function InnerTwo({ meshes, innerTwoVariant = "custom" }: MeshComponentPr
         return;
       }
       
-      let targetMaterial = mesh.material as THREE.MeshStandardMaterial;
+      // innerTwoVariant === "copper"
       if (!(targetMaterial as any).isCustomCopper) {
         targetMaterial = targetMaterial.clone();
         (targetMaterial as any).isCustomCopper = true;
         targetMaterial.map = null; // Remove base map so it doesn't darken the custom color
         
-        // Fix texture blurring at glancing angles/distances using Anisotropic Filtering
         if (targetMaterial.normalMap) {
           targetMaterial.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
           targetMaterial.normalMap.needsUpdate = true;
@@ -57,7 +66,7 @@ export function InnerTwo({ meshes, innerTwoVariant = "custom" }: MeshComponentPr
       targetMaterial.envMapIntensity = copperConfig.envMapIntensity;
       targetMaterial.needsUpdate = true;
     });
-  }, [meshes, gl, innerTwoVariant, copperConfig, defaultColor, waxMaterial]);
+  }, [meshes, gl, innerTwoVariant, copperConfig, waxColor, waxMaterial]);
 
   if (meshes.length === 0) return null;
   return (

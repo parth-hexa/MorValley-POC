@@ -7,10 +7,10 @@ export class Bottle {
   private _name: string;
   private _glbPath: string;
   private _note: string;
-  private _innerTwoVariant: "default" | "custom";
+  private _innerTwoVariant: "copper" | "wax" | "default";
   private _elementManager: ElementManager;
 
-  public constructor(id: BottleType, name: string, glbPath: string, note: string, innerTwoVariant: "default" | "custom" = "custom") {
+  public constructor(id: BottleType, name: string, glbPath: string, note: string, innerTwoVariant: "copper" | "wax" | "default" = "default") {
     this._id = id;
     this._name = name;
     this._glbPath = glbPath;
@@ -41,7 +41,7 @@ export class Bottle {
     return this._elementManager;
   }
 
-  public get innerTwoVariant(): "default" | "custom" {
+  public get innerTwoVariant(): "copper" | "wax" | "default" {
     return this._innerTwoVariant;
   }
 }
