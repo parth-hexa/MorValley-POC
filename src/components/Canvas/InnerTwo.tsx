@@ -84,6 +84,11 @@ export function InnerTwo({
         targetMaterial = targetMaterial.clone();
         (targetMaterial as any).isCustomCopper = true;
 
+        if (targetMaterial.map) {
+          targetMaterial.map.anisotropy = gl.capabilities.getMaxAnisotropy();
+          targetMaterial.map.needsUpdate = true;
+        }
+
         if (targetMaterial.normalMap) {
           targetMaterial.normalMap.anisotropy =
             gl.capabilities.getMaxAnisotropy();
