@@ -48,6 +48,7 @@ export function InnerTwo({
       }
 
       if (innerTwoVariant === "default") {
+        mesh.renderOrder = 2;
         targetMaterial.roughness = 0.5;
         return;
       }
