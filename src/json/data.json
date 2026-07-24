@@ -1,5 +1,5 @@
 {
-  "defaultBottleId": "wine-glass-4",
+  "defaultBottleId": "wine-glass-3",
   "catalog": [
     {
       "id": "wine-glass-4",
@@ -17,6 +17,15 @@
       "note": "1500ml",
       "innerTwoVariant": "wax",
       "innerOneVariant": "black",
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
+    },
+    {
+      "id": "wine-glass-3",
+      "name": "Myo by MorValley 10 Anos_V2",
+      "glbPath": "/models/Myo by MorValley 10 Anos_V2.glb",
+      "note": "1500ml",
+      "innerTwoVariant": "default",
+      "innerOneVariant": "transparent",
       "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
     }
   ]

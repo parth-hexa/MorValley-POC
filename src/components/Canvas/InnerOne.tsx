@@ -11,6 +11,19 @@ export interface MeshComponentProps {
   innerOneVariant?: "black" | "transparent" | "default";
 }
 
+const isOuterGlassMesh = (mesh: THREE.Mesh): boolean => {
+  const name = (mesh.name || "").toLowerCase();
+  const matName = Array.isArray(mesh.material)
+    ? mesh.material.map((m) => m.name.toLowerCase()).join(" ")
+    : (mesh.material?.name || "").toLowerCase();
+
+  // If mesh is specifically the wine liquid, do not treat as glass outer shell
+  if (name.includes("inner_02") || matName.includes("wine")) {
+    return false;
+  }
+  return true;
+};
+
 export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
   const { gl } = useThree();
   const blackMaterial = useMemo(() => createBottleMaterial(), []);
@@ -31,6 +44,21 @@ export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentPro
       }
 
       if (innerOneVariant === "transparent") {
+        const mat = mesh.material as THREE.MeshStandardMaterial;
+        if (mat) {
+          if (mat.map) {
+            mat.map.anisotropy = gl.capabilities.getMaxAnisotropy();
+          }
+          if (mat.normalMap) {
+            mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
+          }
+          // Enable transparency and depth handling on liquid material
+          if (!isOuterGlassMesh(mesh)) {
+            mat.transparent = true;
+            mat.depthWrite = true;
+            mat.needsUpdate = true;
+          }
+        }
         return; 
       }
 
@@ -41,24 +69,27 @@ export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentPro
   if (meshes.length === 0) return null;
   return (
     <>
-      {meshes.map((mesh, i) => (
-        <primitive key={`innerOne-${i}`} object={mesh}>
-          {innerOneVariant === "transparent" && (
-            <MeshTransmissionMaterial
-              backside={glassConfig.backside}
-              thickness={glassConfig.thickness}
-              ior={glassConfig.ior}
-              chromaticAberration={glassConfig.chromaticAberration}
-              transmission={1}
-              clearcoat={1}
-              color={glassConfig.color}
-              attenuationColor={glassConfig.attenuationColor}
-              attenuationDistance={glassConfig.attenuationDistance}
-              roughness={glassConfig.roughness}
-            />
-          )}
-        </primitive>
-      ))}
+      {meshes.map((mesh, i) => {
+        const isGlass = isOuterGlassMesh(mesh);
+        return (
+          <primitive key={`innerOne-${i}`} object={mesh}>
+            {innerOneVariant === "transparent" && isGlass && (
+              <MeshTransmissionMaterial
+                backside={glassConfig.backside}
+                thickness={glassConfig.thickness}
+                ior={glassConfig.ior}
+                chromaticAberration={glassConfig.chromaticAberration}
+                transmission={1}
+                clearcoat={1}
+                color={glassConfig.color}
+                attenuationColor={glassConfig.attenuationColor}
+                attenuationDistance={glassConfig.attenuationDistance}
+                roughness={glassConfig.roughness}
+              />
+            )}
+          </primitive>
+        );
+      })}
     </>
   );
 }

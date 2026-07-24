@@ -24,12 +24,24 @@ export const DEFAULT_CAP_CONFIG = {
 };
 
 export const CLEAR_GLASS_CONFIG = {
-  color: "#ffbca4",
-  attenuationColor: "#9d705a", // Amber/Red port wine color
-  attenuationDistance: { value: 0.1, min: 0.1, max: 10, step: 0.1 },
-  thickness: { value: 0.5, min: 0, max: 10, step: 0.1 },
-  ior: { value: 1.5, min: 1, max: 2.3, step: 0.01 },
-  roughness: { value: 0.05, min: 0, max: 1, step: 0.01 },
-  chromaticAberration: { value: 0.02, min: 0, max: 1, step: 0.01 },
+  color: { value: "#c77a1f", label: "Glass Color" },
+  attenuationColor: { value: "#ffffff", label: "Attenuation Color" },
+  attenuationDistance: {
+    value: 0.5,
+    min: 0.1,
+    max: 10,
+    step: 0.1,
+    label: "Attenuation Distance",
+  },
+  thickness: { value: 0.2, min: 0, max: 10, step: 0.05, label: "Thickness" },
+  ior: { value: 1.5, min: 1, max: 2.3, step: 0.01, label: "IOR" },
+  roughness: { value: 0.05, min: 0, max: 1, step: 0.01, label: "Roughness" },
+  chromaticAberration: {
+    value: 0.02,
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Chromatic Aberration",
+  },
   backside: true,
 };

@@ -27,7 +27,10 @@ export function Outer({ meshes }: { meshes: THREE.Mesh[] }) {
         if (mat.normalMap) {
           mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
         }
-        mat.side = THREE.DoubleSide;
+        mat.polygonOffset = true;
+        mat.polygonOffsetFactor = -4;
+        mat.polygonOffsetUnits = -4;
+        mat.side = THREE.FrontSide;
         mat.needsUpdate = true;
       }
     });

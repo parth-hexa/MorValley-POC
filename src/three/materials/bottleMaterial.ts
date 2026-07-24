@@ -58,7 +58,7 @@ export function createWaxMaterial(): THREE.MeshPhysicalMaterial {
 
 export function createTransparentGlassMaterial(): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
-    color: "#ffffff",
+    color: "#c77a1f",
     transmission: 1,
     opacity: 1,
     metalness: 0,
