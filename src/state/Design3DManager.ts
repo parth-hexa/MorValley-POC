@@ -1,6 +1,5 @@
-import { makeAutoObservable, runInAction } from "mobx";
-import type * as THREE from "three";
-import type { BottleModelConfig, BottleType } from "./types";
+import { makeAutoObservable } from "mobx";
+import type { BottleType } from "./types";
 import { Product3DManager } from "./Product3DManager";
 import { MeshManager } from "./MeshManager";
 

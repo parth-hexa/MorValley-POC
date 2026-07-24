@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import type { Design3DManager } from "./Design3DManager";
 import { ProductManager } from "./ProductManager";
-import type { BottleType, BottleModelConfig } from "./types";
+import type { BottleType } from "./types";
 
 /**
  * Owns 2D/editor-facing state. Today that's just the selected model and

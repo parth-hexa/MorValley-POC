@@ -7,7 +7,8 @@
       "glbPath": "/models/Rogador Reserva Red 750ML_V2.glb",
       "note": "750ml",
       "innerTwoVariant": "copper",
-      "innerOneVariant": "default"
+      "innerOneVariant": "default",
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
     },
     {
       "id": "wine-glass-2",
@@ -15,7 +16,8 @@
       "glbPath": "/models/Magnum_Douro_Reserva.glb",
       "note": "1500ml",
       "innerTwoVariant": "wax",
-      "innerOneVariant": "black"
+      "innerOneVariant": "black",
+      "backgroundGradient": "radial-gradient(73.01% 194.77% at 49.96% 55.88%, #3A2F16 0%, #C87A3B 7.21%, #C87A3B 12.13%, #4A3D1F 100%)"
     }
   ]
 }

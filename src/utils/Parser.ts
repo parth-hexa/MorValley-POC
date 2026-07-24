@@ -27,6 +27,7 @@ export class Parser {
           item.note,
           item.innerTwoVariant,
           item.innerOneVariant,
+          item.backgroundGradient,
         );
         bottle2DManager.addBottle(bottle);
       }

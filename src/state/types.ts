@@ -7,4 +7,5 @@ export interface BottleModelConfig {
   note: string;
   innerTwoVariant?: "copper" | "wax" | "default";
   innerOneVariant?: "black" | "transparent" | "default";
+  backgroundGradient?: string;
 }

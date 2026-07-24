@@ -1,6 +1,6 @@
 import { useProgress } from "@react-three/drei";
 import { observer } from "mobx-react-lite";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./LoadingOverlay.css";
 import { useStores } from "../../hooks/useStores";
 

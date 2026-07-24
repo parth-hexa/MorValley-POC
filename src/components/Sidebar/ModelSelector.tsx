@@ -25,7 +25,7 @@ export const ModelSelector = observer(function ModelSelector() {
                 aria-checked={isActive}
                 className={`model-selector__item${isActive ? " is-active" : ""}`}
                 onClick={() => designManager.selectModel(model.id)}
-                disabled={designManager.isLoading && isActive}
+                disabled={isActive}
               >
                 <span className="model-selector__indicator" aria-hidden="true" />
                 <span className="model-selector__text">

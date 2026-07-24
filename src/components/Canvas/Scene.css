@@ -3,7 +3,24 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%);
+  background: #153A28;
+}
+
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .scene canvas {
