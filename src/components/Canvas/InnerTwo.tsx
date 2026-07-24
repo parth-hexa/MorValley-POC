@@ -55,7 +55,7 @@ export function InnerTwo({
       if (innerTwoVariant === "wax") {
         waxMaterial.color.set(waxConfig.defaultColor);
         waxMaterial.metalness = 0;
-        waxMaterial.roughness = 0.25;
+        waxMaterial.roughness = 0.35;
         waxMaterial.thickness = 2;
         waxMaterial.needsUpdate = true;
 
