@@ -11,17 +11,19 @@ export interface MeshComponentProps {
   innerOneVariant?: "black" | "transparent" | "default";
 }
 
-const isOuterGlassMesh = (mesh: THREE.Mesh): boolean => {
+const isLiquidMesh = (mesh: THREE.Mesh): boolean => {
   const name = (mesh.name || "").toLowerCase();
+  const parentName = (mesh.parent?.name || "").toLowerCase();
   const matName = Array.isArray(mesh.material)
     ? mesh.material.map((m) => m.name.toLowerCase()).join(" ")
     : (mesh.material?.name || "").toLowerCase();
 
-  // If mesh is specifically the wine liquid, do not treat as glass outer shell
-  if (name.includes("inner_02") || matName.includes("wine")) {
-    return false;
-  }
-  return true;
+  // Specifically target the Inner_02 wine liquid slab mesh
+  return (
+    name.includes("inner_02") ||
+    parentName.includes("inner_02") ||
+    matName.includes("wine")
+  );
 };
 
 export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
@@ -36,10 +38,10 @@ export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentPro
     const liquid: THREE.Mesh[] = [];
 
     meshes.forEach((mesh) => {
-      if (isOuterGlassMesh(mesh)) {
-        glass.push(mesh);
-      } else {
+      if (isLiquidMesh(mesh)) {
         liquid.push(mesh);
+      } else {
+        glass.push(mesh);
       }
     });
 
@@ -60,10 +62,10 @@ export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentPro
       }
 
       if (innerOneVariant === "transparent") {
-        const isGlass = isOuterGlassMesh(mesh);
+        const isLiquid = isLiquidMesh(mesh);
 
-        if (!isGlass) {
-          // Liquid mesh: renderOrder = 1 (Renders BEFORE the glass container shell)
+        if (isLiquid) {
+          // Liquid mesh (Inner_02): renderOrder = 1 (Renders BEFORE the glass container shell)
           mesh.renderOrder = 1;
           mesh.scale.set(0.993, 0.995, 0.993);
 
@@ -80,15 +82,16 @@ export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentPro
           physMat.attenuationDistance = liquidConfig.attenuationDistance;
           physMat.ior = liquidConfig.ior;
           physMat.roughness = liquidConfig.roughness;
-          physMat.clearcoat = 0.8;
+          physMat.clearcoat = 0.5;
           physMat.clearcoatRoughness = 0.02;
           physMat.envMapIntensity = liquidConfig.envMapIntensity;
           physMat.transparent = true;
           physMat.depthWrite = true;
           physMat.side = THREE.FrontSide;
           physMat.needsUpdate = true;
+          console.log('hhh')
         } else {
-          // Glass shell: renderOrder = 5 (Renders AFTER the inner liquid and cork)
+          // Glass shell (Inner_01): renderOrder = 5 (Renders AFTER the inner liquid and cork)
           mesh.renderOrder = 5;
           mesh.frustumCulled = false;
         }

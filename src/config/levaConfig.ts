@@ -47,17 +47,17 @@ export const CLEAR_GLASS_CONFIG = {
 };
 
 export const LIQUID_MATERIAL_CONFIG = {
-  color: { value: "#e8851e", label: "Liquid Base Color" },
-  attenuationColor: { value: "#260300", label: "Absorption Color (Edges)" },
+  color: { value: "#f59622", label: "Liquid Base Color" },
+  attenuationColor: { value: "#450700", label: "Absorption Color (Edges)" },
   attenuationDistance: {
-    value: 0.35,
+    value: 0.6,
     min: 0.05,
     max: 5,
     step: 0.05,
     label: "Absorption Distance",
   },
-  transmission: { value: 0.92, min: 0, max: 1, step: 0.01, label: "Transmission" },
-  thickness: { value: 3.0, min: 0, max: 10, step: 0.1, label: "Volume Thickness" },
+  transmission: { value: 0.88, min: 0, max: 1, step: 0.01, label: "Transmission" },
+  thickness: { value: 1.5, min: 0, max: 10, step: 0.1, label: "Volume Thickness" },
   ior: { value: 1.333, min: 1, max: 2, step: 0.01, label: "Liquid IOR" },
   roughness: { value: 0.02, min: 0, max: 1, step: 0.01, label: "Roughness" },
   envMapIntensity: { value: 1.8, min: 0, max: 10, step: 0.1, label: "Env Intensity" },
