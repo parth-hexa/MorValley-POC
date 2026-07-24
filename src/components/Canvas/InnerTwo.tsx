@@ -54,6 +54,11 @@ export function InnerTwo({
 
       if (innerTwoVariant === "wax") {
         waxMaterial.color.set(waxConfig.defaultColor);
+        waxMaterial.metalness = 0;
+        waxMaterial.roughness = 0.35;
+        waxMaterial.transmission = 0.35;
+        waxMaterial.thickness = 2;
+        waxMaterial.ior = 1.44;
         waxMaterial.needsUpdate = true;
 
         // Preserve base map (seal logo) if present so seal artwork remains crisp
