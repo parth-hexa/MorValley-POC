@@ -13,7 +13,7 @@ export interface MeshComponentProps {
   innerTwoVariant?: "copper" | "wax" | "default";
 }
 
-export function InnerTwo({
+export function Cap({
   meshes,
   innerTwoVariant = "default",
 }: MeshComponentProps) {

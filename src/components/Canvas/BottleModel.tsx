@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { Inner } from "./Inner";
-import { InnerTwo } from "./InnerTwo";
-import { Outer } from "./Outer";
+import { Cap } from "./Cap";
+import { BottleSticker } from "./BottleSticker";
 import { useBottleModel } from "../../hooks/useBottleModel";
 
 /**
@@ -24,10 +24,11 @@ export const BottleModel = observer(function BottleModel() {
         scale={loadedObject.scale}
       >
         <Inner meshes={meshes.innerOne} innerOneVariant={innerOneVariant} />
-        <InnerTwo meshes={meshes.innerTwo} innerTwoVariant={innerTwoVariant} />
-        <Outer meshes={meshes.outer} />
+        <Cap meshes={meshes.innerTwo} innerTwoVariant={innerTwoVariant} />
+        <BottleSticker meshes={meshes.outer} />
       </group>
     </group>
   );
 });
+
 

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import * as THREE from "three";
-import { InnerOne } from "./InnerOne";
+import { BottleBody } from "./BottleBody";
 import { WineMesh } from "./WineMesh";
 import type { MeshComponentProps } from "../../types/canvas";
 
@@ -56,7 +56,8 @@ export function Inner({ meshes, innerOneVariant = "black" }: MeshComponentProps)
       <WineMesh meshes={liquidMeshes} innerOneVariant={innerOneVariant} />
 
       {/* 2. Render Glass Outer Shell SECOND at renderOrder = 5 */}
-      <InnerOne meshes={glassMeshes} innerOneVariant={innerOneVariant} />
+      <BottleBody meshes={glassMeshes} innerOneVariant={innerOneVariant} />
     </>
   );
 }
+

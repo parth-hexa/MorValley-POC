@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 export type { MeshComponentProps } from "../../types/canvas";
 
-export function Outer({ meshes }: { meshes: THREE.Mesh[] }) {
+export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
   const { gl } = useThree();
 
   useEffect(() => {

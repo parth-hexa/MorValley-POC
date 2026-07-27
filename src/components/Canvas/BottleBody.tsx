@@ -7,7 +7,7 @@ import { createBottleMaterial } from "../../three/materials/bottleMaterial";
 import { CLEAR_GLASS_CONFIG } from "../../config/levaConfig";
 import type { MeshComponentProps } from "../../types/canvas";
 
-export function InnerOne({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
+export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
   const { gl } = useThree();
   const blackMaterial = useMemo(() => createBottleMaterial(), []);
   const glassConfig = useControls("Clear Glass Config", CLEAR_GLASS_CONFIG);
