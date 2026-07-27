@@ -58,7 +58,7 @@ export function createWaxMaterial(): THREE.MeshPhysicalMaterial {
 
 export function createTransparentGlassMaterial(): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
-    color: "#c77a1f",
+    color: "#ffffff",
     transmission: 1,
     opacity: 1,
     metalness: 0,
@@ -70,5 +70,24 @@ export function createTransparentGlassMaterial(): THREE.MeshPhysicalMaterial {
     clearcoatRoughness: 0,
     transparent: false,
     side: THREE.DoubleSide,
+  });
+}
+
+export function createWineMaterial(): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color: new THREE.Color("#d18648"),
+    transmission: 0.85,
+    opacity: 0.95,
+    metalness: 0,
+    roughness: 0.2,
+    reflectivity: 0,
+    ior: 1.33,
+    thickness: 1.2,
+    attenuationColor: new THREE.Color("#210302"),
+    attenuationDistance: 0.6,
+    envMapIntensity: 1.8,
+    transparent: true,
+    depthWrite: true,
+    side: THREE.FrontSide,
   });
 }

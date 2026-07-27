@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { InnerOne } from "./InnerOne";
+import { Inner } from "./Inner";
 import { InnerTwo } from "./InnerTwo";
 import { Outer } from "./Outer";
 import { useBottleModel } from "../../hooks/useBottleModel";
@@ -23,10 +23,11 @@ export const BottleModel = observer(function BottleModel() {
         rotation={loadedObject.rotation}
         scale={loadedObject.scale}
       >
-        <InnerOne meshes={meshes.innerOne} innerOneVariant={innerOneVariant} />
+        <Inner meshes={meshes.innerOne} innerOneVariant={innerOneVariant} />
         <InnerTwo meshes={meshes.innerTwo} innerTwoVariant={innerTwoVariant} />
         <Outer meshes={meshes.outer} />
       </group>
     </group>
   );
 });
+

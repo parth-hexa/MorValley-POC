@@ -33,7 +33,13 @@ export const CLEAR_GLASS_CONFIG = {
     step: 0.1,
     label: "Attenuation Distance",
   },
-  thickness: { value: 0.35, min: 0, max: 5, step: 0.05, label: "Glass Wall Thickness" },
+  thickness: {
+    value: 0.35,
+    min: 0,
+    max: 5,
+    step: 0.05,
+    label: "Glass Wall Thickness",
+  },
   ior: { value: 1.52, min: 1, max: 2.3, step: 0.01, label: "IOR" },
   roughness: { value: 0.02, min: 0, max: 1, step: 0.01, label: "Roughness" },
   chromaticAberration: {
@@ -47,8 +53,8 @@ export const CLEAR_GLASS_CONFIG = {
 };
 
 export const LIQUID_MATERIAL_CONFIG = {
-  color: { value: "#f59622", label: "Liquid Base Color" },
-  attenuationColor: { value: "#450700", label: "Absorption Color (Edges)" },
+  color: { value: "#c75d27", label: "Liquid Base Color" },
+  attenuationColor: { value: "#210302", label: "Absorption Color (Edges)" },
   attenuationDistance: {
     value: 0.6,
     min: 0.05,
@@ -56,10 +62,34 @@ export const LIQUID_MATERIAL_CONFIG = {
     step: 0.05,
     label: "Absorption Distance",
   },
-  transmission: { value: 0.88, min: 0, max: 1, step: 0.01, label: "Transmission" },
-  thickness: { value: 1.5, min: 0, max: 10, step: 0.1, label: "Volume Thickness" },
+  transmission: {
+    value: 0.85,
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Transmission",
+  },
+  thickness: {
+    value: 1.2,
+    min: 0,
+    max: 10,
+    step: 0.1,
+    label: "Volume Thickness",
+  },
   ior: { value: 1.333, min: 1, max: 2, step: 0.01, label: "Liquid IOR" },
-  roughness: { value: 0.02, min: 0, max: 1, step: 0.01, label: "Roughness" },
-  envMapIntensity: { value: 1.8, min: 0, max: 10, step: 0.1, label: "Env Intensity" },
+  roughness: { value: 0.37, min: 0, max: 1, step: 0.01, label: "Roughness" },
+  reflectivity: {
+    value: 0.11,
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Reflectivity",
+  },
+  envMapIntensity: {
+    value: 1.8,
+    min: 0,
+    max: 10,
+    step: 0.1,
+    label: "Env Intensity",
+  },
 };
-
