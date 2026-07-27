@@ -93,3 +93,16 @@ export const LIQUID_MATERIAL_CONFIG = {
     label: "Env Intensity",
   },
 };
+
+export const VOLUMETRIC_WINE_SHADER_CONFIG = {
+  lightColor: { value: "#ba9666", label: "Light Tone (Bottom & Edge)" },
+  darkColor: { value: "#b62929", label: "Dark Tone (Center & Top)" },
+  transmission: { value: 0.85, min: 0.0, max: 1.0, step: 0.01, label: "Transmission" },
+  attenuationDistance: { value: 2.5, min: 0.1, max: 10.0, step: 0.1, label: "Absorption Distance" },
+  thickness: { value: 1.5, min: 0.0, max: 10.0, step: 0.1, label: "Volume Thickness" },
+  bottomLightness: { value: 0.5, min: 0.0, max: 1.0, step: 0.05, label: "Bottom Lightness Boost" },
+  ior: { value: 1.333, min: 1.0, max: 2.0, step: 0.01, label: "Liquid IOR" },
+  roughness: { value: 0.12, min: 0.0, max: 1.0, step: 0.01, label: "Roughness" },
+  envMapIntensity: { value: 2.2, min: 0.0, max: 10.0, step: 0.1, label: "Env Intensity" },
+};
+
