@@ -12,8 +12,8 @@ import * as THREE from "three";
 export const VolumetricWineShaderMaterial = shaderMaterial(
   {
     uTime: 0,
-    uLightColor: new THREE.Color("#ba9666"), // Light amber/ruby tone for bottom & edges
-    uDarkColor: new THREE.Color("#b62929"),  // Deep dark mahogany tone for center & top
+    uLightColor: new THREE.Color("#ffa800"), // Light amber/ruby tone for bottom & edges
+    uDarkColor: new THREE.Color("#c23c02"),  // Deep dark mahogany tone for center & top
     uAbsorption: new THREE.Vector3(0.08, 0.45, 1.80),
     uThicknessScale: 93.45,                  // Physical liquid diameter (93.45 units)
     uAttenuationDistance: 45.0,              // Distance d_0 for full absorption

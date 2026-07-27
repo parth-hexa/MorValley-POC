@@ -53,8 +53,8 @@ export const CLEAR_GLASS_CONFIG = {
 };
 
 export const LIQUID_MATERIAL_CONFIG = {
-  color: { value: "#c75d27", label: "Liquid Base Color" },
-  attenuationColor: { value: "#210302", label: "Absorption Color (Edges)" },
+  color: { value: "#ffa800", label: "Liquid Base Color" },
+  attenuationColor: { value: "#c23c02", label: "Absorption Color (Edges)" },
   attenuationDistance: {
     value: 0.6,
     min: 0.05,
@@ -95,8 +95,8 @@ export const LIQUID_MATERIAL_CONFIG = {
 };
 
 export const VOLUMETRIC_WINE_SHADER_CONFIG = {
-  lightColor: { value: "#ba9666", label: "Light Tone (Bottom & Edge)" },
-  darkColor: { value: "#b62929", label: "Dark Tone (Center & Top)" },
+  lightColor: { value: "#ffa800", label: "Light Tone (Bottom & Edge)" },
+  darkColor: { value: "#c23c02", label: "Dark Tone (Center & Top)" },
   transmission: { value: 0.85, min: 0.0, max: 1.0, step: 0.01, label: "Transmission" },
   attenuationDistance: { value: 2.5, min: 0.1, max: 10.0, step: 0.1, label: "Absorption Distance" },
   thickness: { value: 1.5, min: 0.0, max: 10.0, step: 0.1, label: "Volume Thickness" },

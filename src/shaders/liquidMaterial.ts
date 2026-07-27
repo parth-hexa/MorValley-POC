@@ -11,8 +11,8 @@ export const LiquidMaterial = shaderMaterial(
   {
     uTime: 0,
     uRotation: 0,
-    uColor: new THREE.Color("#8b1e0f"),
-    uRimColor: new THREE.Color("#210302"),
+    uColor: new THREE.Color("#ffa800"),
+    uRimColor: new THREE.Color("#c23c02"),
     uOpacity: 0.85,
     uSpeed: 0.35,
   },

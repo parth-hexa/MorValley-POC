@@ -9,7 +9,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
 
   const wineMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#ba9666"),
+      color: new THREE.Color("#ffa800"),
       transmission: 0.85,
       opacity: 0.88,
       transparent: true,
@@ -18,13 +18,13 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
       roughness: 0.12,
       ior: 1.333,
       thickness: 1.5,
-      attenuationColor: new THREE.Color("#b62929"),
+      attenuationColor: new THREE.Color("#c23c02"),
       attenuationDistance: 2.5,
       side: THREE.FrontSide,
     });
 
-    const lightColorUniform = { value: new THREE.Color("#ba9666") };
-    const darkColorUniform = { value: new THREE.Color("#b62929") };
+    const lightColorUniform = { value: new THREE.Color("#ffa800") };
+    const darkColorUniform = { value: new THREE.Color("#c23c02") };
     const bottomLightnessUniform = { value: 0.5 };
 
     mat.onBeforeCompile = (shader) => {
