@@ -8,7 +8,8 @@
       "note": "750ml",
       "innerTwoVariant": "copper",
       "innerOneVariant": "black",
-      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
+      "labelPolygonOffset": -4
     },
     {
       "id": "wine-glass-2",
@@ -17,7 +18,8 @@
       "note": "1500ml",
       "innerTwoVariant": "copper",
       "innerOneVariant": "black",
-      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
+      "labelPolygonOffset": -4
     },
     {
       "id": "wine-glass-3",
@@ -26,7 +28,8 @@
       "note": "1500ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
-      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
+      "labelPolygonOffset": 4
     },
     {
       "id": "wine-glass-4",
@@ -35,7 +38,8 @@
       "note": "1500ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
-      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
+      "labelPolygonOffset": 4
     }
   ]
 }

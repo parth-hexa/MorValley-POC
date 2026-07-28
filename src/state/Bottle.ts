@@ -10,6 +10,7 @@ export class Bottle {
   private _innerTwoVariant: "copper" | "wax" | "default";
   private _innerOneVariant: "black" | "transparent" | "default";
   private _backgroundGradient?: string;
+  private _labelPolygonOffset: number;
   private _elementManager: ElementManager;
 
   public constructor(
@@ -19,7 +20,8 @@ export class Bottle {
     note: string,
     innerTwoVariant: "copper" | "wax" | "default" = "default",
     innerOneVariant: "black" | "transparent" | "default" = "black",
-    backgroundGradient?: string
+    backgroundGradient?: string,
+    labelPolygonOffset: number = 4
   ) {
     this._id = id;
     this._name = name;
@@ -28,6 +30,7 @@ export class Bottle {
     this._innerTwoVariant = innerTwoVariant;
     this._innerOneVariant = innerOneVariant;
     this._backgroundGradient = backgroundGradient;
+    this._labelPolygonOffset = labelPolygonOffset;
     this._elementManager = new ElementManager();
     
     makeAutoObservable(this);
@@ -63,5 +66,9 @@ export class Bottle {
 
   public get backgroundGradient(): string | undefined {
     return this._backgroundGradient;
+  }
+
+  public get labelPolygonOffset(): number {
+    return this._labelPolygonOffset;
   }
 }

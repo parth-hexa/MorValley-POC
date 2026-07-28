@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 export type { MeshComponentProps } from "../../types/canvas";
 
-export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
+export function BottleSticker({ meshes, polygonOffsetFactor }: { meshes: THREE.Mesh[]; polygonOffsetFactor: number }) {
   const { gl } = useThree();
 
   useEffect(() => {
@@ -17,13 +17,15 @@ export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
         mesh.geometry.computeBoundingBox();
         mesh.geometry.computeBoundingSphere();
         
-        const center = new THREE.Vector3();
-        mesh.geometry.boundingBox.getCenter(center);
-        
-        // Sum the local geometry center and the mesh position to get the relative Z offset
-        const zPos = center.z + mesh.position.z;
-        if (zPos < -0.05) {
-          isFront = false;
+        if (mesh.geometry.boundingBox) {
+          const center = new THREE.Vector3();
+          mesh.geometry.boundingBox.getCenter(center);
+          
+          // Sum the local geometry center and the mesh position to get the relative Z offset
+          const zPos = center.z + mesh.position.z;
+          if (zPos < -0.05) {
+            isFront = false;
+          }
         }
       }
 
@@ -46,8 +48,8 @@ export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
           mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
         }
         mat.polygonOffset = true;
-        mat.polygonOffsetFactor = 4;
-        mat.polygonOffsetUnits = 4;
+        mat.polygonOffsetFactor = polygonOffsetFactor;
+        mat.polygonOffsetUnits = polygonOffsetFactor;
         mat.transparent = true;
         mat.depthTest = true;
         mat.depthWrite = true;
@@ -55,7 +57,7 @@ export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
         mat.needsUpdate = true;
       }
     });
-  }, [meshes, gl]);
+  }, [meshes, gl, polygonOffsetFactor]);
 
   if (meshes.length === 0) return null;
 

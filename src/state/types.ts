@@ -8,4 +8,5 @@ export interface BottleModelConfig {
   innerTwoVariant?: "copper" | "wax" | "default";
   innerOneVariant?: "black" | "transparent" | "default";
   backgroundGradient?: string;
+  labelPolygonOffset?: number;
 }

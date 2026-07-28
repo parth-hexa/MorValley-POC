@@ -102,12 +102,14 @@ export function useBottleModel() {
   const selectedBottle = designManager.productManager.bottle2DManager.getBottleById(selectedBottleId || "");
   const innerTwoVariant = selectedBottle?.innerTwoVariant || "default";
   const innerOneVariant = selectedBottle?.innerOneVariant || "black";
+  const labelPolygonOffset = selectedBottle?.labelPolygonOffset ?? 4;
 
   return {
     groupRef,
     loadedObject,
     meshes,
     innerTwoVariant,
-    innerOneVariant
+    innerOneVariant,
+    labelPolygonOffset
   };
 }

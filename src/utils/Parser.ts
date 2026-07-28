@@ -28,6 +28,7 @@ export class Parser {
           item.innerTwoVariant,
           item.innerOneVariant,
           item.backgroundGradient,
+          item.labelPolygonOffset
         );
         bottle2DManager.addBottle(bottle);
       }
