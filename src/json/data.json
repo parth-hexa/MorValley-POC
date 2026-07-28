@@ -13,9 +13,9 @@
     {
       "id": "wine-glass-2",
       "name": "Magnum Douro Reserva",
-      "glbPath": "/models/Magnum_Douro_Reserva.glb",
+      "glbPath": "/models/Rogador Reserva Red 1500ml_V1.glb",
       "note": "1500ml",
-      "innerTwoVariant": "wax",
+      "innerTwoVariant": "copper",
       "innerOneVariant": "black",
       "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)"
     },
