@@ -1,9 +1,9 @@
 {
-  "defaultBottleId": "wine-glass-2",
+  "defaultBottleId": "wine-glass-1",
   "catalog": [
     {
       "id": "wine-glass-1",
-      "name": "Rogador Reserva Red V2",
+      "name": "Rogador Reserva Red",
       "glbPath": "/models/Rogador Reserva Red 750ML_V2.glb",
       "note": "750ml",
       "innerTwoVariant": "copper",
@@ -23,7 +23,7 @@
     },
     {
       "id": "wine-glass-3",
-      "name": "Myo by MorValley 10 Anos_V2",
+      "name": "Myo by MorValley 10 Anos",
       "glbPath": "/models/Myo by MorValley 10 Anos_V2.glb",
       "note": "1500ml",
       "innerTwoVariant": "default",
@@ -33,7 +33,7 @@
     },
     {
       "id": "wine-glass-4",
-      "name": "Port Wines 20 Years_V1",
+      "name": "Port Wines 20 Years",
       "glbPath": "/models/Port Wines 20 Years_V1.glb",
       "note": "1500ml",
       "innerTwoVariant": "default",
