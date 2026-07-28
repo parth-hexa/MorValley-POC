@@ -9,21 +9,21 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
 
   const wineMaterial = useMemo(() => {
     const mat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#ffa800"),
+      color: new THREE.Color("#b77a00"),
       transmission: 0.85,
-      opacity: 0.88,
+      opacity: 0.3,
       transparent: true,
-      depthWrite: true,
+      depthWrite: false,
       metalness: 0.0,
       roughness: 0.12,
       ior: 1.333,
       thickness: 1.5,
       attenuationColor: new THREE.Color("#c23c02"),
       attenuationDistance: 2.5,
-      side: THREE.FrontSide,
+      side: THREE.DoubleSide,
     });
 
-    const lightColorUniform = { value: new THREE.Color("#ffa800") };
+    const lightColorUniform = { value: new THREE.Color("#b77a00") };
     const darkColorUniform = { value: new THREE.Color("#c23c02") };
     const bottomLightnessUniform = { value: 0.5 };
 
@@ -72,7 +72,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
           float bottomGlow = ( 1.0 - yNorm ) * uBottomLightness;
           volumetricColor += uLightColor * ( edgeGlow * 0.35 + bottomGlow * 0.45 );
 
-          float dynamicOpacity = mix( 0.65, 0.92, darkMix );
+          float dynamicOpacity = mix( 0.20, 0.45, darkMix );
           vec4 diffuseColor = vec4( volumetricColor, dynamicOpacity );
         `
       );
@@ -104,8 +104,8 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
       if (!mesh) return;
 
       if (innerOneVariant === "transparent") {
-        mesh.renderOrder = 1;
-        mesh.scale.set(0.993, 0.995, 0.993);
+        mesh.renderOrder = 2;
+        mesh.scale.set(0.965, 0.985, 0.965);
         mesh.material = wineMaterial;
         mesh.visible = true;
       }

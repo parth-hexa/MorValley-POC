@@ -9,13 +9,31 @@ export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
 
   useEffect(() => {
     meshes.forEach((mesh) => {
-      // Disable Frustum Culling so outer labels never disappear when rotating camera
       mesh.frustumCulled = false;
-      mesh.renderOrder = 10; // High render order ensures labels render on top of transmissive glass
 
+      // Determine if this mesh is on the front or back of the bottle
+      let isFront = true;
       if (mesh.geometry) {
         mesh.geometry.computeBoundingBox();
         mesh.geometry.computeBoundingSphere();
+        
+        const center = new THREE.Vector3();
+        mesh.geometry.boundingBox.getCenter(center);
+        
+        // Sum the local geometry center and the mesh position to get the relative Z offset
+        const zPos = center.z + mesh.position.z;
+        if (zPos < -0.05) {
+          isFront = false;
+        }
+      }
+
+      // Assign renderOrder based on front/back position
+      if (isFront) {
+        // Front labels draw ON TOP of the glass (no refraction distortion)
+        mesh.renderOrder = 6;
+      } else {
+        // Back labels draw BEHIND the wine and glass (so they are refracted)
+        mesh.renderOrder = 1;
       }
 
       // Ensure anisotropy and double-sided rendering for labels
@@ -28,9 +46,12 @@ export function BottleSticker({ meshes }: { meshes: THREE.Mesh[] }) {
           mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
         }
         mat.polygonOffset = true;
-        mat.polygonOffsetFactor = -4;
-        mat.polygonOffsetUnits = -4;
-        mat.side = THREE.FrontSide;
+        mat.polygonOffsetFactor = 4;
+        mat.polygonOffsetUnits = 4;
+        mat.transparent = true;
+        mat.depthTest = true;
+        mat.depthWrite = true;
+        mat.side = THREE.DoubleSide;
         mat.needsUpdate = true;
       }
     });

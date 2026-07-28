@@ -95,7 +95,7 @@ export const LIQUID_MATERIAL_CONFIG = {
 };
 
 export const VOLUMETRIC_WINE_SHADER_CONFIG = {
-  lightColor: { value: "#ffa800", label: "Light Tone (Bottom & Edge)" },
+  lightColor: { value: "#b77a00", label: "Light Tone (Bottom & Edge)" },
   darkColor: { value: "#c23c02", label: "Dark Tone (Center & Top)" },
   transmission: { value: 0.85, min: 0.0, max: 1.0, step: 0.01, label: "Transmission" },
   attenuationDistance: { value: 2.5, min: 0.1, max: 10.0, step: 0.1, label: "Absorption Distance" },
