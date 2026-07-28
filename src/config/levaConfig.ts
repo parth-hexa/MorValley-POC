@@ -23,6 +23,10 @@ export const DEFAULT_CAP_CONFIG = {
   },
 };
 
+export const VAX_COP_MATERIAL_CONFIG = {
+  color: { value: "#ff7c3b", label: "Color" },
+};
+
 export const CLEAR_GLASS_CONFIG = {
   color: { value: "#ffffff", label: "Glass Color" },
   attenuationColor: { value: "#ffffff", label: "Attenuation Color" },

@@ -5,7 +5,7 @@ export interface BottleModelConfig {
   name: string;
   glbPath: string;
   note: string;
-  innerTwoVariant?: "copper" | "wax" | "default";
+  innerTwoVariant?: "copper" | "wax" | "vaxCop" | "default";
   innerOneVariant?: "black" | "transparent" | "default";
   backgroundGradient?: string;
   labelPolygonOffset?: number;

@@ -7,7 +7,7 @@ export class Bottle {
   private _name: string;
   private _glbPath: string;
   private _note: string;
-  private _innerTwoVariant: "copper" | "wax" | "default";
+  private _innerTwoVariant: "copper" | "wax" | "vaxCop" | "default";
   private _innerOneVariant: "black" | "transparent" | "default";
   private _backgroundGradient?: string;
   private _labelPolygonOffset: number;
@@ -18,7 +18,7 @@ export class Bottle {
     name: string,
     glbPath: string,
     note: string,
-    innerTwoVariant: "copper" | "wax" | "default" = "default",
+    innerTwoVariant: "copper" | "wax" | "vaxCop" | "default" = "default",
     innerOneVariant: "black" | "transparent" | "default" = "black",
     backgroundGradient?: string,
     labelPolygonOffset: number = 4
@@ -56,7 +56,7 @@ export class Bottle {
     return this._elementManager;
   }
 
-  public get innerTwoVariant(): "copper" | "wax" | "default" {
+  public get innerTwoVariant(): "copper" | "wax" | "vaxCop" | "default" {
     return this._innerTwoVariant;
   }
 

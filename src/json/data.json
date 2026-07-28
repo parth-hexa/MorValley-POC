@@ -1,5 +1,5 @@
 {
-  "defaultBottleId": "wine-glass-3",
+  "defaultBottleId": "wine-glass-2",
   "catalog": [
     {
       "id": "wine-glass-1",
@@ -14,9 +14,9 @@
     {
       "id": "wine-glass-2",
       "name": "Magnum Douro Reserva",
-      "glbPath": "/models/Rogador Reserva Red 1500ml_V1.glb",
+      "glbPath": "/models/Rogador Reserva Red 1500ml_V3_CapMod.glb",
       "note": "1500ml",
-      "innerTwoVariant": "copper",
+      "innerTwoVariant": "vaxCop",
       "innerOneVariant": "black",
       "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
       "labelPolygonOffset": -4
