@@ -57,6 +57,27 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
       );
 
       shader.fragmentShader = shader.fragmentShader.replace(
+        `vec3 getVolumeTransmissionRay( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {`,
+        /* glsl */ `
+        vec3 getVolumeTransmissionRay( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {
+          // Custom perturbed refraction ("wobbly bottle" look)
+          vec3 refractionVector = refract( - v, normalize( n ), 1.0 / ior );
+          float noise = sin( vModelPosition.y * 35.0 + vModelPosition.x * 25.0 ) * cos( vModelPosition.z * 25.0 );
+          refractionVector.xy += noise * 0.03;
+
+          vec3 modelScale;
+          modelScale.x = length( vec3( modelMatrix[ 0 ].xyz ) );
+          modelScale.y = length( vec3( modelMatrix[ 1 ].xyz ) );
+          modelScale.z = length( vec3( modelMatrix[ 2 ].xyz ) );
+
+          return normalize( refractionVector ) * thickness * modelScale;
+        }
+
+        vec3 getVolumeTransmissionRay_Disabled( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {
+        `
+      );
+
+      shader.fragmentShader = shader.fragmentShader.replace(
         `vec4 diffuseColor = vec4( diffuse, opacity );`,
         /* glsl */ `
           vec3 vN = normalize( vNormal );
@@ -72,7 +93,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
           float bottomGlow = ( 1.0 - yNorm ) * uBottomLightness;
           volumetricColor += uLightColor * ( edgeGlow * 0.35 + bottomGlow * 0.45 );
 
-          float dynamicOpacity = mix( 0.20, 0.45, darkMix );
+          float dynamicOpacity = mix( 0.70, 0.98, darkMix );
           vec4 diffuseColor = vec4( volumetricColor, dynamicOpacity );
         `
       );
@@ -97,6 +118,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
     wineMaterial.roughness = liquidConfig.roughness;
     wineMaterial.envMapIntensity = liquidConfig.envMapIntensity;
     wineMaterial.needsUpdate = true;
+    // wineMaterial.reflectivity = 0;
   }, [liquidConfig, wineMaterial]);
 
   useEffect(() => {

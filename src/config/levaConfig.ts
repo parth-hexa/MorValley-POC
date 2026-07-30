@@ -56,54 +56,12 @@ export const CLEAR_GLASS_CONFIG = {
   backside: true,
 };
 
-export const LIQUID_MATERIAL_CONFIG = {
-  color: { value: "#ffa800", label: "Liquid Base Color" },
-  attenuationColor: { value: "#c23c02", label: "Absorption Color (Edges)" },
-  attenuationDistance: {
-    value: 0.6,
-    min: 0.05,
-    max: 5,
-    step: 0.05,
-    label: "Absorption Distance",
-  },
-  transmission: {
-    value: 0.85,
-    min: 0,
-    max: 1,
-    step: 0.01,
-    label: "Transmission",
-  },
-  thickness: {
-    value: 1.2,
-    min: 0,
-    max: 10,
-    step: 0.1,
-    label: "Volume Thickness",
-  },
-  ior: { value: 1.333, min: 1, max: 2, step: 0.01, label: "Liquid IOR" },
-  roughness: { value: 0.37, min: 0, max: 1, step: 0.01, label: "Roughness" },
-  reflectivity: {
-    value: 0.11,
-    min: 0,
-    max: 1,
-    step: 0.01,
-    label: "Reflectivity",
-  },
-  envMapIntensity: {
-    value: 1.8,
-    min: 0,
-    max: 10,
-    step: 0.1,
-    label: "Env Intensity",
-  },
-};
-
 export const VOLUMETRIC_WINE_SHADER_CONFIG = {
   lightColor: { value: "#b77a00", label: "Light Tone (Bottom & Edge)" },
   darkColor: { value: "#c23c02", label: "Dark Tone (Center & Top)" },
   transmission: { value: 0.85, min: 0.0, max: 1.0, step: 0.01, label: "Transmission" },
   attenuationDistance: { value: 2.5, min: 0.1, max: 10.0, step: 0.1, label: "Absorption Distance" },
-  thickness: { value: 1.5, min: 0.0, max: 10.0, step: 0.1, label: "Volume Thickness" },
+  thickness: { value: 50, min: 0.0, max: 50, step: 0.1, label: "Volume Thickness" },
   bottomLightness: { value: 0.5, min: 0.0, max: 1.0, step: 0.05, label: "Bottom Lightness Boost" },
   ior: { value: 1.333, min: 1.0, max: 2.0, step: 0.01, label: "Liquid IOR" },
   roughness: { value: 0.12, min: 0.0, max: 1.0, step: 0.01, label: "Roughness" },
