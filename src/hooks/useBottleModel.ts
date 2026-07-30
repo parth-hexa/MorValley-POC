@@ -20,18 +20,18 @@ export function useBottleModel() {
     progressRef.current = 0;
   }, [loadedObject]);
 
-  useFrame((_, delta) => {
-    if (!groupRef.current) return;
+  // useFrame((_, delta) => {
+  //   if (!groupRef.current) return;
     
-    if (isOverlayVisible) return;
+  //   if (isOverlayVisible) return;
     
-    progressRef.current = Math.min(1, progressRef.current + delta * 1.6);
-    const eased = 1 - Math.pow(1 - progressRef.current, 3);
+  //   progressRef.current = Math.min(1, progressRef.current + delta * 1.6);
+  //   const eased = 1 - Math.pow(1 - progressRef.current, 3);
 
-    idleRotationRef.current += delta * 0.12;
-    groupRef.current.rotation.y =
-      idleRotationRef.current + (1 - eased) * (Math.PI / 2);
-  });
+  //   idleRotationRef.current += delta * 0.12;
+  //   groupRef.current.rotation.y =
+  //     idleRotationRef.current + (1 - eased) * (Math.PI / 2);
+  // });
 
   const meshes = useMemo(() => {
     const result = {

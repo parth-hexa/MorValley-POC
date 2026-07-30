@@ -38,7 +38,7 @@ export const CLEAR_GLASS_CONFIG = {
     label: "Attenuation Distance",
   },
   thickness: {
-    value: 0.35,
+    value: 2.25,
     min: 0,
     max: 5,
     step: 0.05,
