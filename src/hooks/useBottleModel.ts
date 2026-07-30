@@ -1,5 +1,4 @@
 import { useEffect, useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useStores } from "./useStores";
 import { useBottleLoader } from "./useBottleLoader";
@@ -11,10 +10,8 @@ export function useBottleModel() {
 
   const groupRef = useRef<THREE.Group>(null);
   const progressRef = useRef(0);
-  const idleRotationRef = useRef(0);
 
   const loadedObject = design3DManager.meshManager.loadedObject;
-  const isOverlayVisible = design3DManager.isOverlayVisible;
 
   useEffect(() => {
     progressRef.current = 0;
