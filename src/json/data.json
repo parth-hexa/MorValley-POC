@@ -4,7 +4,7 @@
     {
       "id": "wine-glass-1",
       "name": "Rogador Reserva Red",
-      "glbPath": "/models/Rogador Reserva Red 750ML_V2.glb",
+      "glbPath": "/models/Rogador Reserva Red 750ML_V6.glb",
       "note": "750ml",
       "innerTwoVariant": "copper",
       "innerOneVariant": "black",
@@ -14,7 +14,7 @@
     {
       "id": "wine-glass-2",
       "name": "Magnum Douro Reserva",
-      "glbPath": "/models/Rogador Reserva Red 1500ml_V3_CapMod.glb",
+      "glbPath": "/models/Rogador Reserva Red 1500ml_V3_CapMod (1).glb",
       "note": "1500ml",
       "innerTwoVariant": "vaxCop",
       "innerOneVariant": "black",
@@ -24,7 +24,7 @@
     {
       "id": "wine-glass-3",
       "name": "Myo by MorValley 10 Anos",
-      "glbPath": "/models/Myo by MorValley 10 Anos_V2.glb",
+      "glbPath": "/models/Myo by MorValley 10 Anos_V6 (1).glb",
       "note": "1500ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
@@ -33,8 +33,8 @@
     },
     {
       "id": "wine-glass-4",
-      "name": "Port Wines 20 Years",
-      "glbPath": "/models/Port Wines 20 Years_V1.glb",
+      "name": "Myo by MorValley 20 Anos",
+      "glbPath": "/models/Port Wines 20 Years_V5.glb",
       "note": "1500ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
