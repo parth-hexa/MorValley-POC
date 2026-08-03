@@ -16,9 +16,7 @@ export const isLiquidMesh = (mesh: THREE.Mesh): boolean => {
   let matName = "";
   if (mesh.material) {
     if (Array.isArray(mesh.material)) {
-      matName = mesh.material
-        .map((m) => (m.name || "").toLowerCase())
-        .join(" ");
+      matName = mesh.material.map((m) => (m.name || "").toLowerCase()).join(" ");
     } else {
       matName = (mesh.material.name || "").toLowerCase();
     }
@@ -34,10 +32,7 @@ export const isLiquidMesh = (mesh: THREE.Mesh): boolean => {
   return isLiquid;
 };
 
-export function Inner({
-  meshes,
-  innerOneVariant = "black",
-}: MeshComponentProps) {
+export function Inner({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
   const { glassMeshes, liquidMeshes } = useMemo(() => {
     const glass: THREE.Mesh[] = [];
     const liquid: THREE.Mesh[] = [];
@@ -65,3 +60,4 @@ export function Inner({
     </>
   );
 }
+

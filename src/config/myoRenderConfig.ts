@@ -13,7 +13,7 @@ export const MYO_LIQUID = {
   ior: 1,
   roughness: 0.12,
   envMapIntensity: 0.4,
-  scale: { x: 0.99, y: 0.99, z: 0.99 } as const,
+  scale: { x: 1.01, y: 1, z: 0.97 } as const,
 } as const;
 
 export const MYO_GLASS = {

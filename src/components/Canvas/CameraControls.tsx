@@ -16,8 +16,8 @@ export const CameraControls = observer(function CameraControls() {
       <OrbitControls
         target={cameraState.target}
         enablePan={false}
-        // minDistance={cameraState.minDistance}
-        // maxDistance={cameraState.maxDistance}
+        minDistance={cameraState.minDistance}
+        maxDistance={cameraState.maxDistance}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 3.5}
         enableDamping={true}
