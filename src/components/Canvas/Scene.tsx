@@ -84,7 +84,7 @@ export const Scene = observer(function Scene() {
       </div>
       <Canvas
         shadows
-        dpr={[1, 2]}
+        dpr={[2,3]}
         gl={{ antialias: true, alpha: true }}
         onCreated={() => design3DManager.setSceneInitialized(true)}
       >
