@@ -10,6 +10,11 @@ function App() {
   // manager owns the entire application state" requirement.
   const [stateManager] = useState(() => new StateManager());
 
+  const isDebug =
+    typeof window !== "undefined" &&
+    (new URLSearchParams(window.location.search).has("debug") ||
+      window.location.pathname.includes("debug"));
+
   useEffect(() => {
     const parser = new Parser();
     parser.loadData(stateManager);
@@ -17,7 +22,7 @@ function App() {
 
   return (
     <StateManagerContext.Provider value={stateManager}>
-      <Leva collapsed />
+      <Leva hidden={!isDebug} collapsed />
       <Layout />
     </StateManagerContext.Provider>
   );
