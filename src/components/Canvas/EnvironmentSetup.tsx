@@ -5,7 +5,7 @@ import { useStores } from "../../hooks/useStores";
 import { MYO_ENVIRONMENT } from "../../config/myoRenderConfig";
 
 const DEFAULT_ENV_FILE = "/env/Wine_Bottle_Environment.exr";
-const DEFAULT_ENV_INTENSITY = 0.2;
+const DEFAULT_ENV_INTENSITY = 0.3;
 
 /**
  * Rogador/Magnum keep the custom wine EXR. Myo uses a studio preset;
@@ -17,9 +17,46 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
     designManager.productManager.bottle2DManager.getSelectedBottle();
   const isMyo = selected?.innerOneVariant === "transparent";
 
-  const rotation = useControls(
-    "Myo Env Rotation",
+  const controls = useControls(
+    "Environment Controls",
     {
+      defaultEnvIntensity: {
+        value: DEFAULT_ENV_INTENSITY,
+        min: 0,
+        max: 5,
+        step: 0.05,
+        label: "Default Env Intensity",
+      },
+      myoIntensity: {
+        value: MYO_ENVIRONMENT.intensity,
+        min: 0,
+        max: 5,
+        step: 0.05,
+        label: "Myo Env Intensity",
+      },
+      myoBlur: {
+        value: MYO_ENVIRONMENT.blur,
+        min: 0,
+        max: 1,
+        step: 0.01,
+        label: "Myo Env Blur",
+      },
+      myoPreset: {
+        value: MYO_ENVIRONMENT.preset,
+        options: [
+          "sunset",
+          "dawn",
+          "night",
+          "warehouse",
+          "forest",
+          "apartment",
+          "studio",
+          "city",
+          "park",
+          "lobby",
+        ],
+        label: "Myo Env Preset",
+      },
       rotationX: {
         value: MYO_ENVIRONMENT.rotationX,
         min: -Math.PI,
@@ -49,13 +86,13 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
   if (isMyo) {
     return (
       <Environment
-        preset={MYO_ENVIRONMENT.preset}
-        environmentIntensity={MYO_ENVIRONMENT.intensity}
-        blur={MYO_ENVIRONMENT.blur}
+        files="/env/ferndale_studio_11_1k.hdr"
+        environmentIntensity={controls.myoIntensity}
+        blur={controls.myoBlur}
         environmentRotation={[
-          rotation.rotationX,
-          rotation.rotationY,
-          rotation.rotationZ,
+          controls.rotationX,
+          controls.rotationY,
+          controls.rotationZ,
         ]}
       />
     );
@@ -64,7 +101,7 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
   return (
     <Environment
       files={DEFAULT_ENV_FILE}
-      environmentIntensity={DEFAULT_ENV_INTENSITY}
+      environmentIntensity={controls.defaultEnvIntensity}
     />
   );
 });

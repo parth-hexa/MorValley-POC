@@ -33,11 +33,11 @@ export const MYO_GLASS = {
 
 export const MYO_ENVIRONMENT = {
   preset: "sunset" as const,
-  intensity: 0.35,
+  intensity: 0.55,
   blur: 0,
   rotationX: 0,
   rotationY: -2.75,
-  rotationZ: 0,
+  rotationZ: -0.99,
 };
 
 export const MYO_LIGHTING = {

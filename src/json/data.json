@@ -24,7 +24,7 @@
     {
       "id": "wine-glass-3",
       "name": "Myo by MorValley 10 Anos",
-      "glbPath": "/models/Myo by MorValley 10 Anos_V8.glb",
+      "glbPath": "/models/Myo by MorValley 10 Anos_V10.glb",
       "note": "750ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
@@ -34,7 +34,7 @@
     {
       "id": "wine-glass-4",
       "name": "Myo by MorValley 20 Anos",
-      "glbPath": "/models/Port Wines 20 Years_V5.glb",
+      "glbPath": "/models/Port Wines 20 Years_V8.glb",
       "note": "750ml",
       "innerTwoVariant": "default",
       "innerOneVariant": "transparent",
