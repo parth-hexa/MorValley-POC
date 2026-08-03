@@ -1,125 +1,33 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
-import { useControls } from "leva";
-import { VOLUMETRIC_WINE_SHADER_CONFIG } from "../../config/levaConfig";
+import { MYO_LIQUID } from "../../config/myoRenderConfig";
 import type { MeshComponentProps } from "../../types/canvas";
 
+/**
+ * Liquid mesh for Myo clear-glass bottles (innerOneVariant === "transparent").
+ * Settings are baked for Myo 10/20.
+ */
 export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
-  const liquidConfig = useControls("Wine Volume Shader", VOLUMETRIC_WINE_SHADER_CONFIG);
-
-  const wineMaterial = useMemo(() => {
-    const mat = new THREE.MeshPhysicalMaterial({
-      color: new THREE.Color("#b77a00"),
-      transmission: 0.85,
-      opacity: 0.3,
-      transparent: true,
-      depthWrite: false,
-      metalness: 0.0,
-      roughness: 0.12,
-      ior: 1.333,
-      thickness: 1.5,
-      attenuationColor: new THREE.Color("#c23c02"),
-      attenuationDistance: 2.5,
-      side: THREE.DoubleSide,
-    });
-
-    const lightColorUniform = { value: new THREE.Color("#b77a00") };
-    const darkColorUniform = { value: new THREE.Color("#c23c02") };
-    const bottomLightnessUniform = { value: 0.5 };
-
-    mat.onBeforeCompile = (shader) => {
-      shader.uniforms.uLightColor = lightColorUniform;
-      shader.uniforms.uDarkColor = darkColorUniform;
-      shader.uniforms.uBottomLightness = bottomLightnessUniform;
-
-      (mat as any).userData.lightColorUniform = lightColorUniform;
-      (mat as any).userData.darkColorUniform = darkColorUniform;
-      (mat as any).userData.bottomLightnessUniform = bottomLightnessUniform;
-
-      shader.vertexShader = shader.vertexShader.replace(
-        `void main() {`,
-        /* glsl */ `
-          varying vec3 vModelPosition;
-          void main() {
-            vModelPosition = position;
-        `
-      );
-
-      shader.fragmentShader = shader.fragmentShader.replace(
-        `void main() {`,
-        /* glsl */ `
-          varying vec3 vModelPosition;
-          uniform vec3 uLightColor;
-          uniform vec3 uDarkColor;
-          uniform float uBottomLightness;
-          void main() {
-        `
-      );
-
-      shader.fragmentShader = shader.fragmentShader.replace(
-        `vec3 getVolumeTransmissionRay( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {`,
-        /* glsl */ `
-        vec3 getVolumeTransmissionRay( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {
-          // Custom perturbed refraction ("wobbly bottle" look)
-          vec3 refractionVector = refract( - v, normalize( n ), 1.0 / ior );
-          float noise = sin( vModelPosition.y * 35.0 + vModelPosition.x * 25.0 ) * cos( vModelPosition.z * 25.0 );
-          refractionVector.xy += noise * 0.03;
-
-          vec3 modelScale;
-          modelScale.x = length( vec3( modelMatrix[ 0 ].xyz ) );
-          modelScale.y = length( vec3( modelMatrix[ 1 ].xyz ) );
-          modelScale.z = length( vec3( modelMatrix[ 2 ].xyz ) );
-
-          return normalize( refractionVector ) * thickness * modelScale;
-        }
-
-        vec3 getVolumeTransmissionRay_Disabled( const in vec3 n, const in vec3 v, const in float thickness, const in float ior, const in mat4 modelMatrix ) {
-        `
-      );
-
-      shader.fragmentShader = shader.fragmentShader.replace(
-        `vec4 diffuseColor = vec4( diffuse, opacity );`,
-        /* glsl */ `
-          vec3 vN = normalize( vNormal );
-          vec3 vV = normalize( - vViewPosition );
-          
-          float yNorm = clamp( ( vModelPosition.y - 1.26 ) / ( 147.19 - 1.26 ), 0.0, 1.0 );
-          float centerFactor = clamp( abs( dot( vN, vV ) ), 0.02, 1.0 );
-          
-          float darkMix = clamp( pow( centerFactor, 0.55 ) * ( 0.35 + yNorm * 0.95 ), 0.0, 1.0 );
-          vec3 volumetricColor = mix( uLightColor, uDarkColor, darkMix );
-
-          float edgeGlow = pow( 1.0 - centerFactor, 2.5 );
-          float bottomGlow = ( 1.0 - yNorm ) * uBottomLightness;
-          volumetricColor += uLightColor * ( edgeGlow * 0.35 + bottomGlow * 0.45 );
-
-          float dynamicOpacity = mix( 0.70, 0.98, darkMix );
-          vec4 diffuseColor = vec4( volumetricColor, dynamicOpacity );
-        `
-      );
-    };
-
-    return mat;
-  }, []);
-
-  useEffect(() => {
-    const lightUniform = (wineMaterial as any).userData.lightColorUniform;
-    const darkUniform = (wineMaterial as any).userData.darkColorUniform;
-    const bottomLightnessUniform = (wineMaterial as any).userData.bottomLightnessUniform;
-
-    if (lightUniform) lightUniform.value.set(liquidConfig.lightColor);
-    if (darkUniform) darkUniform.value.set(liquidConfig.darkColor);
-    if (bottomLightnessUniform) bottomLightnessUniform.value = liquidConfig.bottomLightness;
-
-    wineMaterial.transmission = liquidConfig.transmission;
-    wineMaterial.attenuationDistance = liquidConfig.attenuationDistance;
-    wineMaterial.thickness = liquidConfig.thickness;
-    wineMaterial.ior = liquidConfig.ior;
-    wineMaterial.roughness = liquidConfig.roughness;
-    wineMaterial.envMapIntensity = liquidConfig.envMapIntensity;
-    wineMaterial.needsUpdate = true;
-    // wineMaterial.reflectivity = 0;
-  }, [liquidConfig, wineMaterial]);
+  const wineMaterial = useMemo(
+    () =>
+      new THREE.MeshPhysicalMaterial({
+        color: new THREE.Color(MYO_LIQUID.color),
+        attenuationColor: new THREE.Color(MYO_LIQUID.attenuationColor),
+        attenuationDistance: MYO_LIQUID.attenuationDistance,
+        transmission: MYO_LIQUID.transmission,
+        opacity: MYO_LIQUID.opacity,
+        transparent: true,
+        depthWrite: false,
+        metalness: 0,
+        roughness: MYO_LIQUID.roughness,
+        ior: MYO_LIQUID.ior,
+        thickness: MYO_LIQUID.thickness,
+        envMapIntensity: MYO_LIQUID.envMapIntensity,
+        specularIntensity: 0.6,
+        side: THREE.DoubleSide,
+      }),
+    []
+  );
 
   useEffect(() => {
     meshes.forEach((mesh) => {
@@ -127,7 +35,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
 
       if (innerOneVariant === "transparent") {
         mesh.renderOrder = 2;
-        mesh.scale.set(0.965, 0.985, 0.965);
+        mesh.scale.set(MYO_LIQUID.scale.x, MYO_LIQUID.scale.y, MYO_LIQUID.scale.z);
         mesh.material = wineMaterial;
         mesh.visible = true;
       }

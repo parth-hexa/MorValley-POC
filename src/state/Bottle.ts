@@ -68,6 +68,10 @@ export class Bottle {
     return this._backgroundGradient;
   }
 
+  public set backgroundGradient(value: string | undefined) {
+    this._backgroundGradient = value;
+  }
+
   public get labelPolygonOffset(): number {
     return this._labelPolygonOffset;
   }

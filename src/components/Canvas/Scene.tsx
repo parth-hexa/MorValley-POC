@@ -37,7 +37,10 @@ export const Scene = observer(function Scene() {
       }
       return {
         activeGradient: targetGradient,
-        previousGradient: prev.activeGradient !== targetGradient ? prev.activeGradient : prev.previousGradient,
+        previousGradient:
+          prev.activeGradient !== targetGradient
+            ? prev.activeGradient
+            : prev.previousGradient,
         isFading: true,
       };
     });
@@ -55,7 +58,6 @@ export const Scene = observer(function Scene() {
 
   return (
     <div className="scene">
-      {/* Previous background layer (fading out) */}
       {bgLayers.previousGradient && (
         <div
           className="scene-bg"
@@ -65,12 +67,11 @@ export const Scene = observer(function Scene() {
           }}
         />
       )}
-      {/* Current background layer (fading in) */}
       <div
         className="scene-bg"
         style={{
           background: bgLayers.activeGradient,
-          opacity: bgLayers.isFading ? 1 : 1,
+          opacity: 1,
           animation: bgLayers.isFading ? "fadeInBg 0.8s ease-in-out" : "none",
         }}
       />
@@ -87,8 +88,6 @@ export const Scene = observer(function Scene() {
         gl={{ antialias: true, alpha: true }}
         onCreated={() => design3DManager.setSceneInitialized(true)}
       >
-        {/* <color attach="background" args={["#7D9165"]} /> */}
-        {/* <fog attach="fog" args={["#7D9165", 6, 14]} /> */}
         <Suspense fallback={null}>
           <EnvironmentSetup />
           <Lighting />
