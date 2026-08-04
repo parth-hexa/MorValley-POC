@@ -25,7 +25,11 @@ export const BottleModel = observer(function BottleModel() {
       >
         <Inner meshes={meshes.innerOne} innerOneVariant={innerOneVariant} />
         <Cap meshes={meshes.innerTwo} innerTwoVariant={innerTwoVariant} />
-        <BottleSticker meshes={meshes.outer} polygonOffsetFactor={labelPolygonOffset} />
+        <BottleSticker
+          meshes={meshes.outer}
+          polygonOffsetFactor={labelPolygonOffset}
+          innerOneVariant={innerOneVariant}
+        />
       </group>
     </group>
   );

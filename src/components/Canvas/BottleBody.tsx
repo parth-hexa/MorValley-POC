@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import { useThree } from "@react-three/fiber";
 import { MeshTransmissionMaterial } from "@react-three/drei";
+import { useControls } from "leva";
 import { createBottleMaterial } from "../../three/materials/bottleMaterial";
 import { MYO_GLASS } from "../../config/myoRenderConfig";
 import type { MeshComponentProps } from "../../types/canvas";
@@ -13,6 +14,39 @@ import type { MeshComponentProps } from "../../types/canvas";
 export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentProps) {
   const { gl } = useThree();
   const blackMaterial = useMemo(() => createBottleMaterial(), []);
+
+  const isMyo = innerOneVariant === "transparent";
+  // Slightly shrink Myo glass so coplanar labels sit outside the transmission surface.
+  const glassXZ = isMyo ? 0.985 : 1;
+
+  const { scaleX, scaleY, scaleZ } = useControls(
+    "Glass Bottle Scale",
+    {
+      scaleX: {
+        value: glassXZ,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale X",
+      },
+      scaleY: {
+        value: 1,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale Y",
+      },
+      scaleZ: {
+        value: glassXZ,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale Z",
+      },
+    },
+    { collapsed: false },
+    [glassXZ]
+  );
 
   useEffect(() => {
     meshes.forEach((mesh) => {
@@ -30,12 +64,13 @@ export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentP
       if (innerOneVariant === "transparent") {
         mesh.renderOrder = 5;
         mesh.frustumCulled = false;
+        mesh.scale.set(scaleX, scaleY, scaleZ);
         return;
       }
 
       mesh.material = blackMaterial;
     });
-  }, [meshes, innerOneVariant, blackMaterial, gl]);
+  }, [meshes, innerOneVariant, blackMaterial, gl, scaleX, scaleY, scaleZ]);
 
   if (meshes.length === 0) return null;
 

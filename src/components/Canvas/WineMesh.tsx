@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
+import { useControls } from "leva";
 import { MYO_LIQUID } from "../../config/myoRenderConfig";
 import type { MeshComponentProps } from "../../types/canvas";
 
@@ -29,18 +30,46 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
     []
   );
 
+  const { scaleX, scaleY, scaleZ } = useControls(
+    "Wine Mesh Scale",
+    {
+      scaleX: {
+        value: MYO_LIQUID.scale.x,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale X",
+      },
+      scaleY: {
+        value: MYO_LIQUID.scale.y,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale Y",
+      },
+      scaleZ: {
+        value: MYO_LIQUID.scale.z,
+        min: 0.5,
+        max: 1.5,
+        step: 0.001,
+        label: "Scale Z",
+      },
+    },
+    { collapsed: false }
+  );
+
   useEffect(() => {
     meshes.forEach((mesh) => {
       if (!mesh) return;
 
       if (innerOneVariant === "transparent") {
         mesh.renderOrder = 2;
-        mesh.scale.set(MYO_LIQUID.scale.x, MYO_LIQUID.scale.y, MYO_LIQUID.scale.z);
+        mesh.scale.set(scaleX, scaleY, scaleZ);
         mesh.material = wineMaterial;
         mesh.visible = true;
       }
     });
-  }, [meshes, innerOneVariant, wineMaterial]);
+  }, [meshes, innerOneVariant, wineMaterial, scaleX, scaleY, scaleZ]);
 
   if (meshes.length === 0) return null;
 
