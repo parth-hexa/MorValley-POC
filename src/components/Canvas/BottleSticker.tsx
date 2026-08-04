@@ -96,9 +96,9 @@ export function BottleSticker({
         if (mat.map) {
           mat.map.anisotropy = gl.capabilities.getMaxAnisotropy();
         }
-        if (mat.normalMap) {
-          mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
-        }
+        // if (mat.normalMap) {
+        //   mat.normalMap.anisotropy = gl.capabilities.getMaxAnisotropy();
+        // }
         mat.polygonOffset = true;
         mat.polygonOffsetFactor = offsetFactor;
         mat.polygonOffsetUnits = offsetUnits;
