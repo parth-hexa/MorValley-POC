@@ -38,7 +38,7 @@ export function WineMesh({ meshes, innerOneVariant = "black" }: MeshComponentPro
       opacity: { value: MYO_LIQUID.opacity, min: 0, max: 1, step: 0.01, label: "Opacity" },
       transmission: { value: MYO_LIQUID.transmission, min: 0, max: 1, step: 0.01, label: "Transmission" },
       attenuationDistance: { value: MYO_LIQUID.attenuationDistance, min: 0.01, max: 5, step: 0.05, label: "Attenuation Dist" },
-      thickness: { value: MYO_LIQUID.thickness, min: 0, max: 10, step: 0.1, label: "Thickness" },
+      thickness: { value: MYO_LIQUID.thickness, min: 0, max: 100, step: 0.1, label: "Thickness" },
       ior: { value: MYO_LIQUID.ior, min: 1, max: 2.5, step: 0.01, label: "IOR" },
       roughness: { value: MYO_LIQUID.roughness, min: 0, max: 1, step: 0.01, label: "Roughness" },
       envMapIntensity: { value: MYO_LIQUID.envMapIntensity, min: 0, max: 2, step: 0.05, label: "EnvMap Intensity" },

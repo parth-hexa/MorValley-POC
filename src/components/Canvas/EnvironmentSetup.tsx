@@ -119,50 +119,51 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
         input.click();
       }),
       "Download Config JSON": button((get) => {
+        const liquidColor = get("MYO Liquid Material.Color");
         const configData = {
           MYO_LIQUID: {
-            color: get("MYO Liquid Material.Color"),
-            attenuationColor: get("MYO Liquid Material.Attenuation Color"),
-            opacity: get("MYO Liquid Material.Opacity"),
-            transmission: get("MYO Liquid Material.Transmission"),
-            attenuationDistance: get("MYO Liquid Material.Attenuation Dist"),
-            thickness: get("MYO Liquid Material.Thickness"),
-            ior: get("MYO Liquid Material.IOR"),
-            roughness: get("MYO Liquid Material.Roughness"),
-            envMapIntensity: get("MYO Liquid Material.EnvMap Intensity"),
+            color: liquidColor ?? MYO_LIQUID.color,
+            attenuationColor: get("MYO Liquid Material.Attenuation Color") ?? MYO_LIQUID.attenuationColor,
+            opacity: get("MYO Liquid Material.Opacity") ?? MYO_LIQUID.opacity,
+            transmission: get("MYO Liquid Material.Transmission") ?? MYO_LIQUID.transmission,
+            attenuationDistance: get("MYO Liquid Material.Attenuation Dist") ?? MYO_LIQUID.attenuationDistance,
+            thickness: get("MYO Liquid Material.Thickness") ?? MYO_LIQUID.thickness,
+            ior: get("MYO Liquid Material.IOR") ?? MYO_LIQUID.ior,
+            roughness: get("MYO Liquid Material.Roughness") ?? MYO_LIQUID.roughness,
+            envMapIntensity: get("MYO Liquid Material.EnvMap Intensity") ?? MYO_LIQUID.envMapIntensity,
             scale: {
-              x: get("MYO Liquid Material.Scale X"),
-              y: get("MYO Liquid Material.Scale Y"),
-              z: get("MYO Liquid Material.Scale Z"),
+              x: get("MYO Liquid Material.Scale X") ?? MYO_LIQUID.scale.x,
+              y: get("MYO Liquid Material.Scale Y") ?? MYO_LIQUID.scale.y,
+              z: get("MYO Liquid Material.Scale Z") ?? MYO_LIQUID.scale.z,
             },
           },
           MYO_GLASS: {
-            backside: get("MYO Glass Transmission.Backside"),
-            samples: get("MYO Glass Transmission.Samples"),
-            resolution: get("MYO Glass Transmission.Resolution"),
-            thickness: get("MYO Glass Transmission.Thickness"),
-            ior: get("MYO Glass Transmission.IOR"),
-            reflectivity: get("MYO Glass Transmission.Reflectivity"),
-            chromaticAberration: get("MYO Glass Transmission.Chromatic Aberration"),
-            anisotropicBlur: get("MYO Glass Transmission.Anisotropic Blur"),
-            transmission: get("MYO Glass Transmission.Transmission"),
-            clearcoat: get("MYO Glass Transmission.Clearcoat"),
-            clearcoatRoughness: get("MYO Glass Transmission.Clearcoat Roughness"),
-            envMapIntensity: get("MYO Glass Transmission.EnvMap Intensity"),
-            color: get("MYO Glass Transmission.Color"),
-            attenuationColor: get("MYO Glass Transmission.Attenuation Color"),
-            attenuationDistance: get("MYO Glass Transmission.Attenuation Distance"),
-            roughness: get("MYO Glass Transmission.Roughness"),
-            metalness: get("MYO Glass Transmission.Metalness"),
+            backside: get("MYO Glass Transmission.Backside") ?? MYO_GLASS.backside,
+            samples: get("MYO Glass Transmission.Samples") ?? MYO_GLASS.samples,
+            resolution: get("MYO Glass Transmission.Resolution") ?? MYO_GLASS.resolution,
+            thickness: get("MYO Glass Transmission.Thickness") ?? MYO_GLASS.thickness,
+            ior: get("MYO Glass Transmission.IOR") ?? MYO_GLASS.ior,
+            reflectivity: get("MYO Glass Transmission.Reflectivity") ?? MYO_GLASS.reflectivity,
+            chromaticAberration: get("MYO Glass Transmission.Chromatic Aberration") ?? MYO_GLASS.chromaticAberration,
+            anisotropicBlur: get("MYO Glass Transmission.Anisotropic Blur") ?? MYO_GLASS.anisotropicBlur,
+            transmission: get("MYO Glass Transmission.Transmission") ?? 1,
+            clearcoat: get("MYO Glass Transmission.Clearcoat") ?? 1.0,
+            clearcoatRoughness: get("MYO Glass Transmission.Clearcoat Roughness") ?? 0.02,
+            envMapIntensity: get("MYO Glass Transmission.EnvMap Intensity") ?? 1,
+            color: get("MYO Glass Transmission.Color") ?? MYO_GLASS.color,
+            attenuationColor: get("MYO Glass Transmission.Attenuation Color") ?? MYO_GLASS.attenuationColor,
+            attenuationDistance: get("MYO Glass Transmission.Attenuation Distance") ?? MYO_GLASS.attenuationDistance,
+            roughness: get("MYO Glass Transmission.Roughness") ?? MYO_GLASS.roughness,
+            metalness: get("MYO Glass Transmission.Metalness") ?? MYO_GLASS.metalness,
           },
           MYO_ENVIRONMENT: {
-            preset: get("Environment Controls.Myo Env Preset"),
-            intensity: get("Environment Controls.Myo Env Intensity"),
-            blur: get("Environment Controls.Myo Env Blur"),
-            rotationX: get("Environment Controls.Rotation X"),
-            rotationY: get("Environment Controls.Rotation Y"),
-            rotationZ: get("Environment Controls.Rotation Z"),
-            bgColor: get("Environment Controls.Background Color"),
+            preset: get("Environment Controls.Myo Env Preset") ?? MYO_ENVIRONMENT.preset,
+            intensity: get("Environment Controls.Myo Env Intensity") ?? MYO_ENVIRONMENT.intensity,
+            blur: get("Environment Controls.Myo Env Blur") ?? MYO_ENVIRONMENT.blur,
+            rotationX: get("Environment Controls.Rotation X") ?? MYO_ENVIRONMENT.rotationX,
+            rotationY: get("Environment Controls.Rotation Y") ?? MYO_ENVIRONMENT.rotationY,
+            rotationZ: get("Environment Controls.Rotation Z") ?? MYO_ENVIRONMENT.rotationZ,
+            bgColor: get("Environment Controls.Background Color") ?? MYO_ENVIRONMENT.bgColor,
           },
         };
         const blob = new Blob([JSON.stringify(configData, null, 2)], {
@@ -185,7 +186,7 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
   if (isMyo) {
     return (
       <Environment
-        files="/env/ferndale_studio_11_1k.hdr"
+        files="/env/buikslotermeerplein_2k.hdr"
         environmentIntensity={controls.myoIntensity}
         blur={controls.myoBlur}
         environmentRotation={[
