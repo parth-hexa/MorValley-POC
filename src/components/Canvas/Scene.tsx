@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../hooks/useStores";
+import { MYO_RENDER } from "../../config/myoRenderConfig";
 import { Lighting } from "./Lighting";
 import { EnvironmentSetup } from "./EnvironmentSetup";
 import { CameraControls } from "./CameraControls";
@@ -84,8 +85,8 @@ export const Scene = observer(function Scene() {
       </div>
       <Canvas
         shadows
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={MYO_RENDER.dpr}
+        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         onCreated={() => design3DManager.setSceneInitialized(true)}
       >
         <Suspense fallback={null}>

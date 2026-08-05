@@ -2,7 +2,12 @@ import { Environment } from "@react-three/drei";
 import { useControls, button } from "leva";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../hooks/useStores";
-import { MYO_ENVIRONMENT, MYO_LIQUID, MYO_GLASS } from "../../config/myoRenderConfig";
+import {
+  MYO_ENV_FILE,
+  MYO_ENVIRONMENT,
+  MYO_LIQUID,
+  MYO_GLASS,
+} from "../../config/myoRenderConfig";
 import { Bottle } from "../../state/Bottle";
 
 const DEFAULT_ENV_FILE = "/env/Wine_Bottle_Environment.exr";
@@ -119,22 +124,28 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
         input.click();
       }),
       "Download Config JSON": button((get) => {
-        const liquidColor = get("MYO Liquid Material.Color");
+        const liquid = (label: string) => get(`MYO Liquid Refraction Material.${label}`);
         const configData = {
           MYO_LIQUID: {
-            color: liquidColor ?? MYO_LIQUID.color,
-            attenuationColor: get("MYO Liquid Material.Attenuation Color") ?? MYO_LIQUID.attenuationColor,
-            opacity: get("MYO Liquid Material.Opacity") ?? MYO_LIQUID.opacity,
-            transmission: get("MYO Liquid Material.Transmission") ?? MYO_LIQUID.transmission,
-            attenuationDistance: get("MYO Liquid Material.Attenuation Dist") ?? MYO_LIQUID.attenuationDistance,
-            thickness: get("MYO Liquid Material.Thickness") ?? MYO_LIQUID.thickness,
-            ior: get("MYO Liquid Material.IOR") ?? MYO_LIQUID.ior,
-            roughness: get("MYO Liquid Material.Roughness") ?? MYO_LIQUID.roughness,
-            envMapIntensity: get("MYO Liquid Material.EnvMap Intensity") ?? MYO_LIQUID.envMapIntensity,
+            color: liquid("Thin Colour") ?? MYO_LIQUID.color,
+            attenuationColor: liquid("Deep Colour") ?? MYO_LIQUID.attenuationColor,
+            attenuationDistance: liquid("Absorption Dist") ?? MYO_LIQUID.attenuationDistance,
+            opacity: MYO_LIQUID.opacity,
+            ior: liquid("IOR") ?? MYO_LIQUID.ior,
+            bounces: liquid("Bounces") ?? MYO_LIQUID.bounces,
+            fresnel: liquid("Fresnel") ?? MYO_LIQUID.fresnel,
+            aberrationStrength: liquid("Aberration") ?? MYO_LIQUID.aberrationStrength,
+            fastChroma: liquid("Fast Chroma") ?? MYO_LIQUID.fastChroma,
+            normalSmoothing: liquid("Normal Smoothing") ?? MYO_LIQUID.normalSmoothing,
+            correctMips: liquid("Correct Mips") ?? MYO_LIQUID.correctMips,
+            blurScale: liquid("Env Blur Scale") ?? MYO_LIQUID.blurScale,
+            envIntensity: liquid("EnvMap Intensity") ?? MYO_LIQUID.envIntensity,
+            envCubeSize: liquid("Env Cube Size") ?? MYO_LIQUID.envCubeSize,
+            weldNormals: liquid("Weld Normals") ?? MYO_LIQUID.weldNormals,
             scale: {
-              x: get("MYO Liquid Material.Scale X") ?? MYO_LIQUID.scale.x,
-              y: get("MYO Liquid Material.Scale Y") ?? MYO_LIQUID.scale.y,
-              z: get("MYO Liquid Material.Scale Z") ?? MYO_LIQUID.scale.z,
+              x: liquid("Scale X") ?? MYO_LIQUID.scale.x,
+              y: liquid("Scale Y") ?? MYO_LIQUID.scale.y,
+              z: liquid("Scale Z") ?? MYO_LIQUID.scale.z,
             },
           },
           MYO_GLASS: {
@@ -186,7 +197,7 @@ export const EnvironmentSetup = observer(function EnvironmentSetup() {
   if (isMyo) {
     return (
       <Environment
-        files="/env/buikslotermeerplein_2k.hdr"
+        files={MYO_ENV_FILE}
         environmentIntensity={controls.myoIntensity}
         blur={controls.myoBlur}
         environmentRotation={[
