@@ -4,15 +4,15 @@
  */
 
 export const MYO_LIQUID = {
-  color: "#c47c4f",
-  attenuationColor: "#ffdbdb",
-  opacity: 0.71,
-  transmission: 0.84,
-  attenuationDistance: 0.35,
-  thickness: 1.3,
-  ior: 1.34,
-  roughness: 0,
-  envMapIntensity: 2,
+  color: "#9b4b1a",
+  attenuationColor: "#4d1502",
+  opacity: 1.0,
+  transmission: 0.28,
+  attenuationDistance: 0.22,
+  thickness: 12.0,
+  ior: 1.33,
+  roughness: 0.05,
+  envMapIntensity: 0.8,
   scale: { x: 1, y: 1, z: 1 } as const,
 } as const;
 
