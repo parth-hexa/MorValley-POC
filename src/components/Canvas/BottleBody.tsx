@@ -19,9 +19,26 @@ export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentP
   // Slightly shrink Myo glass so coplanar labels sit outside the transmission surface.
   const glassXZ = isMyo ? 0.985 : 1;
 
-  const { scaleX, scaleY, scaleZ } = useControls(
-    "Glass Bottle Scale",
+  const glassProps = useControls(
+    "MYO Glass Transmission",
     {
+      backside: { value: MYO_GLASS.backside, label: "Backside" },
+      samples: { value: MYO_GLASS.samples, min: 1, max: 32, step: 1, label: "Samples" },
+      resolution: { value: MYO_GLASS.resolution, min: 256, max: 2048, step: 256, label: "Resolution" },
+      thickness: { value: MYO_GLASS.thickness, min: 0, max: 10, step: 0.05, label: "Thickness" },
+      ior: { value: MYO_GLASS.ior, min: 1, max: 2.5, step: 0.01, label: "IOR" },
+      reflectivity: { value: MYO_GLASS.reflectivity, min: 0, max: 1, step: 0.01, label: "Reflectivity" },
+      chromaticAberration: { value: MYO_GLASS.chromaticAberration, min: 0, max: 1, step: 0.01, label: "Chromatic Aberration" },
+      anisotropicBlur: { value: MYO_GLASS.anisotropicBlur, min: 0, max: 1, step: 0.01, label: "Anisotropic Blur" },
+      transmission: { value: 1, min: 0, max: 1, step: 0.01, label: "Transmission" },
+      clearcoat: { value: 0, min: 0, max: 1, step: 0.01, label: "Clearcoat" },
+      clearcoatRoughness: { value: 0, min: 0, max: 1, step: 0.01, label: "Clearcoat Roughness" },
+      envMapIntensity: { value: 1, min: 0, max: 5, step: 0.05, label: "EnvMap Intensity" },
+      color: { value: MYO_GLASS.color, label: "Color" },
+      attenuationColor: { value: MYO_GLASS.attenuationColor, label: "Attenuation Color" },
+      attenuationDistance: { value: MYO_GLASS.attenuationDistance, min: 0.01, max: 20, step: 0.05, label: "Attenuation Distance" },
+      roughness: { value: MYO_GLASS.roughness, min: 0, max: 1, step: 0.01, label: "Roughness" },
+      metalness: { value: MYO_GLASS.metalness, min: 0, max: 1, step: 0.01, label: "Metalness" },
       scaleX: {
         value: glassXZ,
         min: 0.5,
@@ -64,13 +81,13 @@ export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentP
       if (innerOneVariant === "transparent") {
         mesh.renderOrder = 5;
         mesh.frustumCulled = false;
-        mesh.scale.set(scaleX, scaleY, scaleZ);
+        mesh.scale.set(glassProps.scaleX, glassProps.scaleY, glassProps.scaleZ);
         return;
       }
 
       mesh.material = blackMaterial;
     });
-  }, [meshes, innerOneVariant, blackMaterial, gl, scaleX, scaleY, scaleZ]);
+  }, [meshes, innerOneVariant, blackMaterial, gl, glassProps]);
 
   if (meshes.length === 0) return null;
 
@@ -80,21 +97,23 @@ export function BottleBody({ meshes, innerOneVariant = "black" }: MeshComponentP
         <primitive key={`glass-${i}`} object={mesh}>
           {innerOneVariant === "transparent" && (
             <MeshTransmissionMaterial
-              backside={MYO_GLASS.backside}
-              samples={MYO_GLASS.samples}
-              resolution={MYO_GLASS.resolution}
-              thickness={MYO_GLASS.thickness}
-              ior={MYO_GLASS.ior}
-              chromaticAberration={MYO_GLASS.chromaticAberration}
-              anisotropicBlur={MYO_GLASS.anisotropicBlur}
-              transmission={1}
-              clearcoat={1}
-              clearcoatRoughness={0}
-              color={MYO_GLASS.color}
-              attenuationColor={MYO_GLASS.attenuationColor}
-              attenuationDistance={MYO_GLASS.attenuationDistance}
-              roughness={MYO_GLASS.roughness}
-              metalness={MYO_GLASS.metalness}
+              backside={glassProps.backside}
+              samples={glassProps.samples}
+              resolution={glassProps.resolution}
+              thickness={glassProps.thickness}
+              ior={glassProps.ior}
+              reflectivity={glassProps.reflectivity}
+              chromaticAberration={glassProps.chromaticAberration}
+              anisotropicBlur={glassProps.anisotropicBlur}
+              transmission={glassProps.transmission}
+              clearcoat={glassProps.clearcoat}
+              clearcoatRoughness={glassProps.clearcoatRoughness}
+              envMapIntensity={glassProps.envMapIntensity}
+              color={glassProps.color}
+              attenuationColor={glassProps.attenuationColor}
+              attenuationDistance={glassProps.attenuationDistance}
+              roughness={glassProps.roughness}
+              metalness={glassProps.metalness}
             />
           )}
         </primitive>

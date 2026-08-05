@@ -4,15 +4,15 @@
  */
 
 export const MYO_LIQUID = {
-  color: "#933f0a",
-  attenuationColor: "#8b3a0a",
-  opacity: 1,
-  transmission: 0.72,
+  color: "#d57539",
+  attenuationColor: "#c42525",
+  opacity: 0.71,
+  transmission: 0.84,
   attenuationDistance: 0.35,
   thickness: 1.3,
-  ior: 1,
-  roughness: 0.12,
-  envMapIntensity: 0.4,
+  ior: 1.97,
+  roughness: 0,
+  envMapIntensity: 2,
   scale: { x: 1, y: 1, z: 1 } as const,
 } as const;
 
@@ -20,8 +20,9 @@ export const MYO_GLASS = {
   color: "#ffffff",
   attenuationColor: "#ffffff",
   attenuationDistance: 5,
-  thickness: 2.2,
-  ior: 1.5,
+  thickness: 0.3,
+  ior: 2.5,
+  reflectivity: 0,
   roughness: 0,
   metalness: 0,
   chromaticAberration: 0.02,
@@ -33,11 +34,12 @@ export const MYO_GLASS = {
 
 export const MYO_ENVIRONMENT = {
   preset: "sunset" as const,
-  intensity: 0.55,
+  intensity: 0.35,
   blur: 0,
-  rotationX: 0,
+  rotationX: -1.57,
   rotationY: -2.75,
   rotationZ: -0.99,
+  bgColor: "#cacecc",
 };
 
 export const MYO_LIGHTING = {
