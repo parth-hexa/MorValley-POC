@@ -27,6 +27,15 @@ export function useBottleLoader() {
     const bottle = bottle2DManager.getBottleById(selectedBottleId);
     if (!bottle) return;
 
+    // Client GLB is rendered directly via useGLTF — skip ModelLoader mesh pipeline.
+    if (selectedBottleId === "wine-glass-5") {
+      runInAction(() => {
+        design3DManager.meshManager.setLoadedObject(null);
+        design3DManager.setCurrentModel(selectedBottleId);
+      });
+      return;
+    }
+
     const config: BottleModelConfig = {
       id: bottle.id,
       name: bottle.name,

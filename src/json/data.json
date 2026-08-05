@@ -1,5 +1,5 @@
 {
-  "defaultBottleId": "wine-glass-1",
+  "defaultBottleId": "wine-glass-5",
   "catalog": [
     {
       "id": "wine-glass-1",
@@ -40,6 +40,16 @@
       "innerOneVariant": "transparent",
       "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
       "labelPolygonOffset": -16
+    },
+    {
+      "id": "wine-glass-5",
+      "name": "Myo by MorValley 10 Anos Client",
+      "glbPath": "/models/Porto 10YO.glb",
+      "note": "750ml",
+      "innerTwoVariant": "default",
+      "innerOneVariant": "transparent",
+      "backgroundGradient": "radial-gradient(74.98% 200.05% at 49.96% 55.42%, #153A28 0%, #215A3E 3.53%, #215A3E 35.8%, #153A28 84.05%)",
+      "labelPolygonOffset": 0
     }
   ]
 }
