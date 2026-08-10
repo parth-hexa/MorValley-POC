@@ -81,7 +81,7 @@ const LIQUID_CONTROLS = {
   blurScale: {
     value: MYO_LIQUID.blurScale,
     min: 0.25,
-    max: 8,
+    max: 15,
     step: 0.05,
     label: "Env Blur Scale",
   },
