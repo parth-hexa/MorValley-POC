@@ -70,6 +70,9 @@ const fragmentShader = /* glsl */ `
   uniform float aberrationStrength;
   uniform float fresnel;
   uniform float envIntensity;
+  // How much of the sharp, refracted scene shows through vs. a heavily
+  // blurred wash of the same env (keeps the light/colour, loses the mirror).
+  uniform float envDetail;
   uniform vec3 color;
   uniform vec3 attenuationColor;
   uniform float attenuationDistance;
@@ -157,17 +160,22 @@ const fragmentShader = /* glsl */ `
   #ifdef ENVMAP_TYPE_CUBEM
     vec3 sampleEnv(vec3 rayDirection, vec3 directionCamPerfect) {
       vec3 grad = correctMips ? directionCamPerfect : rayDirection;
-      return textureGrad(
+      vec3 sharp = textureGrad(
         envMap, rayDirection, dFdx(grad) * blurScale, dFdy(grad) * blurScale
       ).rgb;
+      // Forced coarse mip — no readable scenery, just the env's overall tone.
+      vec3 flat_ = textureLod(envMap, rayDirection, 8.0).rgb;
+      return mix(flat_, sharp, clamp(envDetail, 0.0, 1.0));
     }
   #else
     vec3 sampleEnv(vec3 rayDirection, vec3 directionCamPerfect) {
       vec2 uvv = equirectUv(rayDirection);
       vec2 grad = correctMips ? equirectUv(directionCamPerfect) : uvv;
-      return textureGrad(
+      vec3 sharp = textureGrad(
         envMap, uvv, dFdx(grad) * blurScale, dFdy(grad) * blurScale
       ).rgb;
+      vec3 flat_ = textureLod(envMap, uvv, 8.0).rgb;
+      return mix(flat_, sharp, clamp(envDetail, 0.0, 1.0));
     }
   #endif
 
@@ -234,6 +242,7 @@ export const WineRefractionMaterialImpl = shaderMaterial(
     aberrationStrength: 0.015,
     fresnel: 0,
     envIntensity: 1,
+    envDetail: 0.35,
     color: new THREE.Color("white"),
     attenuationColor: new THREE.Color("black"),
     attenuationDistance: 1,

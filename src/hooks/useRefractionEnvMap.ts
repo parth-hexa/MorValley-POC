@@ -55,6 +55,11 @@ export function useRefractionEnvMap(size = 1024) {
 
       const target = new THREE.WebGLCubeRenderTarget(size, {
         type: THREE.HalfFloatType,
+        // Real mip chain so the shader can pull a heavily blurred sample for
+        // the "flat" env lookup, not just the sharp face texture.
+        generateMipmaps: true,
+        minFilter: THREE.LinearMipmapLinearFilter,
+        magFilter: THREE.LinearFilter,
       });
       target.fromEquirectangularTexture(gl, equirect);
 

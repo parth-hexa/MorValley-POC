@@ -19,6 +19,7 @@ export interface MyoLiquidSettings {
   attenuationColor: string;
   attenuationDistance: number;
   envIntensity: number;
+  envDetail: number;
   normalSmoothing: number;
   blurScale: number;
   correctMips: boolean;
@@ -39,6 +40,7 @@ const BAKED_LIQUID_SETTINGS: MyoLiquidSettings = {
   attenuationColor: MYO_LIQUID.attenuationColor,
   attenuationDistance: MYO_LIQUID.attenuationDistance,
   envIntensity: MYO_LIQUID.envIntensity,
+  envDetail: MYO_LIQUID.envDetail,
   normalSmoothing: MYO_LIQUID.normalSmoothing,
   blurScale: MYO_LIQUID.blurScale,
   correctMips: MYO_LIQUID.correctMips,
@@ -70,6 +72,13 @@ const LIQUID_CONTROLS = {
     max: 3,
     step: 0.05,
     label: "EnvMap Intensity",
+  },
+  envDetail: {
+    value: MYO_LIQUID.envDetail,
+    min: 0,
+    max: 1,
+    step: 0.01,
+    label: "Env Reflection Amount",
   },
   normalSmoothing: {
     value: MYO_LIQUID.normalSmoothing,
@@ -199,6 +208,7 @@ function LiquidSurface({
     material.ior = settings.ior;
     material.fresnel = settings.fresnel;
     material.envIntensity = settings.envIntensity;
+    material.envDetail = settings.envDetail;
     material.normalSmoothing = settings.normalSmoothing;
     material.blurScale = settings.blurScale;
     material.correctMips = settings.correctMips;

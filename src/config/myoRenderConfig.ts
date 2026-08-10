@@ -3,14 +3,14 @@
  * Only applied when innerOneVariant === "transparent".
  */
 
-export const MYO_ENV_FILE = "/env/buikslotermeerplein_2k.hdr";
+export const MYO_ENV_FILE = "/env/buikslotermeerplein_2k_B6.hdr";
 
 export const MYO_LIQUID = {
-  color: "#ffcf96",
-  attenuationColor: "#5c1608",
+  color: "#db8d2d",
+  attenuationColor: "#801905",
   attenuationDistance: 1.3,
   opacity: 1.0,
-  ior: 1.33,
+  ior: 1.12,
   bounces: 3,
   fresnel: 0.5,
   aberrationStrength: 0.006,
@@ -19,6 +19,12 @@ export const MYO_LIQUID = {
   correctMips: false,
   blurScale: 1.35,
   envIntensity: 1.0,
+  /**
+   * How much of the sharp, refracted scene shows through the wine.
+   * 0 = flat lighting wash only, 1 = full mirror of the room. Keep this low
+   * so the env doesn't read as a literal reflection of the surroundings.
+   */
+  envDetail: 0.35,
   envCubeSize: 1024,
   weldNormals: false,
   scale: { x: 1, y: 1, z: 1 } as const,
@@ -30,24 +36,28 @@ export const MYO_GLASS = {
   resolution: 2048,
   thickness: 0.95,
   ior: 1.52,
-  reflectivity: 0.5,
+  /** No dielectric env mirror on the shell. */
+  reflectivity: 0,
   chromaticAberration: 0.02,
-  anisotropicBlur: 0.08,
+  anisotropicBlur: 0.4,
   transmission: 1,
-  clearcoat: 1.0,
-  clearcoatRoughness: 0.02,
-  envMapIntensity: 1,
+  /** Light gloss from lamps only — clearcoatRoughness softens it. */
+  clearcoat: 0.6,
+  clearcoatRoughness: 0.2,
+  /** 0 = no HDR scenery on glass; lights still light the bottle. */
+  envMapIntensity: 0,
   color: "#ffffff",
   attenuationColor: "#cad6c3",
   attenuationDistance: 1.8,
-  roughness: 0.02,
+  roughness: 0.12,
   metalness: 0,
 } as const;
 
 export const MYO_ENVIRONMENT = {
   preset: "studio" as const,
   intensity: 0.8,
-  blur: 0,
+  /** Soft wash if anything else still samples the env. */
+  blur: 1,
   rotationX: -1.57,
   rotationY: -2.75,
   rotationZ: -0.99,
